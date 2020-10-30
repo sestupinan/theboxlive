@@ -5,7 +5,8 @@
   "scripts": {    
     "start-client": "cd front && npm start",
     "build": "npm build && (cd front && npm install)",
-    "start": "node ./bin/www && (cd front && npm start)"
+    "start": "node ./bin/www && (cd front && npm start)",
+    "postinstall": "cd front && npm install && npm start"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
