@@ -5,7 +5,8 @@
   "scripts": {    
     "start-client": "cd front && npm start",
     "build": "npm build && (cd front && npm install)",
-    "start": "cd front && npm start"
+    "start": "nodemon ./bin/www",
+    "heroku-postbuild": "cd front && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
