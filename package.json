@@ -2,8 +2,11 @@
   "name": "backend",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
+  "scripts": {    
+    "start-client": "cd front && npm start",
+    "build": "npm build && (cd front && npm install)",
+    "start": "node ./bin/www && (cd front && npm start)",
+    "postinstall": "cd front && npm start"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
