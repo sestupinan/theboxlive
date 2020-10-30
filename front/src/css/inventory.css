@@ -1,0 +1,27 @@
+
+
+.color-brand{
+    
+    background-color:rgb(221, 167, 95);
+}
+
+/* .actions{
+    display: none!important;
+} */
+
+.action > img {
+    width: 15px;
+}
+
+.add-product{
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.table-hover{
+    background-color: rgb(221, 167, 95);
+}
+
+.sect{
+    background-color: rgb(221, 167, 95) !important;
+}

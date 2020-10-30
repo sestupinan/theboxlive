@@ -1,0 +1,155 @@
+.title {
+  text-align: center;
+}
+
+.headerAzul2{
+  text-align: center;
+  color: #1d2d44;
+}
+
+.navBar {
+  background-color: #1d2d44;
+}
+.chart {
+  justify-content: center;
+  text-align: center;
+}
+.text-chart {
+  font-family: "Roboto Slab", serif;
+  font-size: 20px;
+}
+.img-chart {
+  border: solid 1px;
+  border-radius: 12px;
+  border-color: #1d2d44;
+}
+.img-negocio {
+  height: 250px;
+  width: 250px;
+  margin-left: 30px;
+}
+.text-percent {
+  font-family: "Roboto Slab", serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+.border-izquierda {
+  border: 5px inset #1d2d44;
+  border-radius: 16px 16px 16px 16px;
+  padding: 10px;
+}
+.contactEmployee{
+  background-color: #c89933 !important;
+}
+.caras {
+  border-radius: 50% !important;
+  height: 100px !important;
+  width: 100px !important;
+  margin-bottom: 10px !important;
+}
+#botons {
+  margin-top: 5px;
+}
+.card {
+  background-color: #1d2d44 !important;
+  display: flex;
+  border-color: #1d2d44;
+}
+
+.infoEmpl{
+  color: #c89933;
+}
+.emplName{
+  color: #1d2d44;
+  background-color: #c89933;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 #1d2d44 !important;
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: #c89933;
+  font-size: 18px;
+  
+}
+
+.information{
+  color: #1d2d44;
+  background-color: #c89933;
+
+}
+
+.ownStatistics{
+  color: #c89933;
+}
+
+.titleOwner{
+  color: #1d2d44;
+  background-color: #c89933;
+}
+
+#botonsito {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: #1d2d44;
+  background-color: #c89933;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover,
+a:hover {
+  opacity: 0.7;
+}
+.btn-nav {
+  background-color: #1d2d44;
+  color: black;
+  margin: 5px;
+}
+
+.socialM{
+  margin: 24px 0;
+}
+
+.btnAddEmployee{
+  background-color: #1d2d44;
+}
+
+.btnModalAddEmployee{
+  background-color: #c89933 !important; 
+  margin-top: 5px !important;
+  margin-right: 10px;
+  color: #1d2d44;
+}
+
+.btnModalRemoveEmployee{
+  background-color: #c89933 !important; 
+  margin-top: 5px;
+  color: #1d2d44;
+}
+
+.ownerPic{
+  width: 100%;
+}

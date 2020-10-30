@@ -1,0 +1,106 @@
+.title{
+    text-align: center;
+}
+.chart{
+
+    justify-content: center;
+    text-align: center;
+
+}
+.text-chart{
+    font-family: 'Roboto Slab', serif;
+    font-size : 20px;
+}
+.img-chart{
+    border: solid 1px;
+    border-radius: 12px;
+    border-color:  rgb(221, 167, 95);
+
+}
+.storeCol{
+    margin: 1%;
+    background-color: rgb(221, 167, 95);
+    padding: 1%;
+}
+.text-center{
+    font-family: "Lobster", cursive;
+    color:#1d2d44;
+}
+.storeFieldsLabel{
+    font-family: "Montserrat";
+    color:#1d2d44;
+}
+.storeFields{
+    font-family: "Montserrat";
+    color:#1d2d44;
+    font-weight: 800;
+}
+.graphRow{
+    margin: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+.titleRow{
+    margin: 1%;
+    padding-top: 1%;
+}
+.img-negocio{
+    height: 250px;
+    width: 250px;
+    margin-left: 30px;
+
+}
+.text-percent{
+    font-family: 'Roboto Slab', serif;
+    font-size : 30px;
+    font-weight: bold;
+
+}
+.border-derecha{
+    border-right: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(160, 82, 44);
+}
+.search-bar{
+    margin-top: 15px;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: rgb(225, 153, 131);
+}
+.search-bar::placeholder{
+    font-family: 'Roboto Slab', serif;
+    color: black;
+}
+.card{
+    height: auto;
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(166, 83, 65);
+    border-radius: 12px;
+    border-color: rgb(225, 153, 131);
+} 
+.card:hover{
+    background-color:  rgb(225, 153, 131);
+}     
+.img-card{
+    height: 100px;
+    width: 100px;
+}
+.center{
+    justify-content: center;
+    justify-items: center;
+}
+.text-card{
+    text-align: center;
+    font-weight: bold;
+
+    font-family: 'Roboto Slab', serif;
+}
+.seleccionada{
+    background-color:  rgb(225, 153, 131);
+}

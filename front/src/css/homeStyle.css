@@ -1,0 +1,159 @@
+#navBar {
+  background-color: #c89933;
+}
+.navBar {
+  background-color: #1d2d44 !important;
+}
+
+.azul{
+  background-color: #1d2d44 !important;
+  color: #c89933;
+}
+.nabBar {
+  background-color: rgb(129, 41, 29);
+}
+
+.nav-link{
+  color: #c89933 !important;
+  font-size: 19px;
+  padding-right: 15px !important;
+}
+
+#boxPhoto {
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  max-height: 400px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+.brand {
+  color: rgb(221, 167, 95);
+  font-size: 50px;
+  margin-right: 30px;
+  font-weight: 700;
+}
+
+
+.sectionAmarillo {
+  background-color: rgb(221, 167, 95);
+}
+
+.sectionCafe {
+  background-color: rgb(166, 83, 65);
+}
+
+.headerAzul {
+  font-family: "Zilla Slab", serif;
+  text-align: center;
+  color:#1d2d44;
+}
+
+.headerCafe {
+  font-family: "Zilla Slab", serif;
+  text-align: center;
+  color: rgb(225, 153, 131);
+  margin: 20px;
+}
+
+.regularText {
+  font-family: "Roboto Slab", serif;
+  font-size: 20px;
+  margin: 10px;
+}
+
+.listText {
+  font-family: "Roboto Slab", serif;
+  font-size: 15px;
+  margin: 5px;
+}
+
+.center {
+  text-align: center;
+}
+
+.itemNav {
+  font-family: "Zilla Slab", serif;
+  font-size: 20px;
+  margin-left:auto !important;  
+  margin-right:0 !important;
+}
+
+.wordsNav {
+  color: black;
+}
+
+
+.experiencePhoto {
+  display: block;
+  margin: auto;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.flex-container {
+  margin: 10px;
+  display: flex;
+}
+
+.cafeOscuro {
+  color: rgb(160, 82, 44);
+}
+
+.cafeNaranja {
+  color: rgb(231, 108, 72);
+}
+
+.cafeClaro {
+  color: rgb(166, 83, 65);
+}
+
+.cafeRojo {
+  color: rgb(129, 41, 29);
+}
+
+.piel {
+  color: rgb(225, 153, 131);
+}
+
+.colorBox {
+  color: rgb(221, 167, 95);
+  width: 20px;
+  height: 20px;
+  padding-right: 8px;
+
+}
+
+.logo{
+  width: 50px;
+  height: 50px;
+}
+
+#btn-nav {
+  background-color: #1d2d44;
+  color: black;
+  margin: 5px;
+}
+.btn-nav {
+  background-color: #c89933 !important;
+  color: #1d2d44 !important;
+  margin: 5px !important;
+}
+
+#navBox {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.carrouselItem {
+  background-color: rgb(129, 41, 29);
+  color: rgb(221, 167, 95);
+  margin: 1%;
+}
+
+#Contact{
+  display: none;
+}

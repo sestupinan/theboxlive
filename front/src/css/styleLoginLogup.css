@@ -1,0 +1,85 @@
+body {
+  background-color:white;
+}
+.container-fluid {
+  padding: 50px;
+}
+.container {
+  background-color: #1d2d44;
+  padding: 50px;
+}
+p.logCategory {
+  color: black;
+  font: bold;
+}
+.loginCol{
+  background-color: #1d2d44;
+  border: 2%;
+  padding:2%;
+  border-left: 2%;
+  border-right: 2%;
+}
+.errorMessage{
+  color: rgb(129, 41, 29);
+  font-size: small;
+}
+#title {
+  font-family: "Lobster", cursive;
+  color: rgb(221, 167, 95);
+}
+#ourPasswordHelpInline {
+  color: white;
+}
+#brand {
+  color: rgb(221, 167, 95);
+  font-size: 50px;
+  margin-right: 30px;
+  font-weight: 700;
+}
+#navBox {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+#navBar {
+  background-color: rgb(129, 41, 29);
+}
+#btn-nav-SignIn {
+  background-color:white;
+  color: black;
+  margin: 5px;
+}
+#btn-nav-CleanInfo {
+  background-color:white;
+  color: black;
+  margin: 5px;
+}
+#btn-nav-Company-Administrator {
+  background-color:white;
+  color: black;
+  margin: 5px;
+}
+#btn-nav-SignUp {
+  background-color:white;
+  color: black;
+  margin: 5px;
+} 
+div.amarilloPollito{
+    background-color: rgb(221, 167, 95);
+    padding: 2%;
+    border: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+.CompanyFieldSet1{
+    display: none;
+}
+.CompanyFieldSet2{
+    display: none;
+}
+.invalid-feedback{
+  color:rgb(95, 65, 31);
+  font-weight: 500;
+  font-stretch: semi-expanded;
+}
