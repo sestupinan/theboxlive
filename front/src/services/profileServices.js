@@ -48,6 +48,6 @@ export async function postTienda(data) {
 }
 
 export async function deleteTienda(data) {
-  await axios.delete("http://localhost:3001/api/almacenes/" + data);
+  await axios.delete("/api/almacenes/" + data);
   //.then(response => this.setState({ articleId: response.data.id }));
 }

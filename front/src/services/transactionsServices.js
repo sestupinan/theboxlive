@@ -8,7 +8,7 @@ export async function getTransactions() {
   };
   try {
     let respuesta = await axios.get(
-      "http://localhost:3001/api/historiales",
+      "/api/historiales",
       config
     );
     return respuesta.data;
