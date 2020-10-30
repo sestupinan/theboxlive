@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, withRouter, connect, mapStateToProps } from "react-router-dom";
+import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 import Home from "../components/Home";
 import Inventory from "../components/Inventory";
 import Navbar from "../components/Navbar";
@@ -25,4 +25,4 @@ function App() {
     </BrowserRouter>
   );
 }
-export default withRouter(connect(mapStateToProps, { f, g })(App));
+export default function App();

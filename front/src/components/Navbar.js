@@ -49,26 +49,26 @@ export default class Navbar extends React.Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="./statistics">
+                <Link className="nav-link" to="/statistics">
                   Statistics
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a type="button" className="nav-link" href="./transactions">
+                <Link type="button" className="nav-link" to="/transactions">
                   Transactions
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a type="button" className="nav-link" href="./profile">
+                <Link type="button" className="nav-link" to="/profile">
                   Profile
-                </a>
+                </Link>
               </li>
             </ul>
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="btn btn-dark btn-nav" href="./loginlogup">
+                <Link className="btn btn-dark btn-nav" to="/loginlogup">
                   Sign in/Sign up
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
