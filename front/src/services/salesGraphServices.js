@@ -8,7 +8,7 @@ export async function getAlmacen() {
   };
   try {
     let respuesta = await axios.get(
-      "http://localhost:3000/api/almacenes/2",
+      "http://localhost:3001/api/almacenes/2",
       config
     );
     return respuesta.data;
