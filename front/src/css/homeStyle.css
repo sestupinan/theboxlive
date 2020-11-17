@@ -5,15 +5,16 @@
   background-color: #1d2d44 !important;
 }
 
-.azul{
-  background-color: #1d2d44 !important;
-  color: #c89933;
+.azul {
+  background-color: #c89933 !important;
+  color: #1d2d44;
+  padding: 0.5%;
 }
 .nabBar {
   background-color: rgb(129, 41, 29);
 }
 
-.nav-link{
+.nav-link {
   color: #c89933 !important;
   font-size: 19px;
   padding-right: 15px !important;
@@ -29,13 +30,17 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
 }
+
+.centered{
+  text-align: center;
+}
+
 .brand {
   color: rgb(221, 167, 95);
   font-size: 50px;
   margin-right: 30px;
   font-weight: 700;
 }
-
 
 .sectionAmarillo {
   background-color: rgb(221, 167, 95);
@@ -48,7 +53,7 @@
 .headerAzul {
   font-family: "Zilla Slab", serif;
   text-align: center;
-  color:#1d2d44;
+  color: #1d2d44;
 }
 
 .headerCafe {
@@ -77,14 +82,13 @@
 .itemNav {
   font-family: "Zilla Slab", serif;
   font-size: 20px;
-  margin-left:auto !important;  
-  margin-right:0 !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
 }
 
 .wordsNav {
   color: black;
 }
-
 
 .experiencePhoto {
   display: block;
@@ -123,10 +127,9 @@
   width: 20px;
   height: 20px;
   padding-right: 8px;
-
 }
 
-.logo{
+.logo {
   width: 50px;
   height: 50px;
 }
@@ -137,7 +140,7 @@
   margin: 5px;
 }
 .btn-nav {
-  background-color: #c89933 !important;
+  background-color: rgb(221, 167, 95) !important;
   color: #1d2d44 !important;
   margin: 5px !important;
 }
@@ -149,11 +152,125 @@
 }
 
 .carrouselItem {
-  background-color: rgb(129, 41, 29);
+  background-color: #1d2d44;
   color: rgb(221, 167, 95);
+}
+.carrouselImg {
+  max-height: 500px;
+}
+#Contact {
+  display: none;
+}
+.overlaying {
+  position: relative;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  filter: grayscale(1) brightness(0.5);
+}
+.overlaying:hover {
+  filter: grayscale(0);
+}
+.overlayed {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #c89933;
   margin: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  font-size: large;
+  filter: grayscale(0);
+}
+.overlayed_description {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background-color: #c89933;
+  margin: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  font-size: medium;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
 }
 
-#Contact{
+/* Create four equal columns that sits next to each other */
+.column {
+  flex: 25%;
+  max-width: 33.3%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+.column img:hover {
+  filter: grayscale(0);
+}
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+  .overlaying {
+    filter: grayscale(0) brightness(1);
+  }
+}
+#form {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+}
+
+#form p {
+  text-align: center;
+}
+  
+#form label {
+  font-size: 40px;
+}
+
+input[type="radio"] {
   display: none;
+}
+
+.estrella {
+ color: whitesmoke ;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.clasificacion > label {
+  font-size: 40px;
+}
+
+label:hover,
+label:hover ~ label {
+  color: yellow;
+}
+
+input[type="radio"]:checked ~ label {
+  color: yellow;
+}
+.oscuro{
+  background-color: #1d2d44;
 }

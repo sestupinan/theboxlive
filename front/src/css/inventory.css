@@ -1,10 +1,5 @@
 
 
-.color-brand{
-    
-    background-color:rgb(221, 167, 95);
-}
-
 /* .actions{
     display: none!important;
 } */
@@ -18,10 +13,23 @@
     margin-left: auto;
 }
 
-.table-hover{
-    background-color: rgb(221, 167, 95);
+
+
+.btn-primary{
+    background-color: rgb(221, 167, 95) !important;
 }
 
-.sect{
+.btn-secondary{
+    background-color: #1d2d44 !important;
+}
+
+.btn-warning{
     background-color: rgb(221, 167, 95) !important;
+    border-color: rgb(221, 167, 95) !important;
+}
+
+.titleInventory{
+    font-family: "Zilla Slab", serif;
+    justify-content: center;
+    color: #1d2d44;
 }

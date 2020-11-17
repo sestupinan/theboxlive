@@ -9,9 +9,9 @@ function LoginLogup() {
     <div className="container-fluid">
       <div className="row justify-content-around">
         <div className="col-10 loginCol rounded">
-          <h2 className="text-center" id="title">
+          <h1 className="text-center" id="title">
             Welcome to THEBOX
-          </h2>
+          </h1>
           <p className="text-center">
             <small id="ourPasswordHelpInline">
               Here your inventory will be safe and counted, no more messy
@@ -26,18 +26,18 @@ function LoginLogup() {
         </div>
       </div>
       <p className="text-center">
-        <small id="passwordHelpInline" className="text-muted">
+        <small id="passwordHelpInline">
           Developer:
           <a
             href="https://github.com/isis3710-uniandes/202020_S2_E6"
             target="_blank"
-            className="h6"
+            className="h6 linkdark"
           >
             {" "}
             ISIS3710-Group6
           </a>
           . Universidad de Los Andes @2020 Credits:
-          <a href="https://v4-alpha.getbootstrap.com/" className="h6">
+          <a href="https://v4-alpha.getbootstrap.com/" className="h6 linkdark">
             {" "}
             boostrap v4.
           </a>

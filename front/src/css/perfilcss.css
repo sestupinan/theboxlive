@@ -3,6 +3,7 @@
 }
 
 .headerAzul2{
+  font-family: "Zilla Slab", serif;
   text-align: center;
   color: #1d2d44;
 }
@@ -37,9 +38,12 @@
   border: 5px inset #1d2d44;
   border-radius: 16px 16px 16px 16px;
   padding: 10px;
+  justify-content: center;
 }
 .contactEmployee{
   background-color: #c89933 !important;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 .caras {
   border-radius: 50% !important;
@@ -58,10 +62,12 @@
 
 .infoEmpl{
   color: #c89933;
+  font-size: 20px !important;
 }
 .emplName{
   color: #1d2d44;
   background-color: #c89933;
+  font-size: x-large !important;
 }
 
 .container {

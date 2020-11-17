@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/styleLoginLogup.css";
 import { useFormik } from "formik";
-
+import Modal from "react-bootstrap/Modal";
 function LoginForm() {
+  const [showDl, setShowDl] = useState(false);
+  const handleCloseDl = () => setShowDl(false);
+  const handleShowDl = () => {
+    setShowDl(true);
+  };
   //Objeto Formik para uso de estados y funciones de forma abreviada
   const formik = useFormik({
     initialValues: {
@@ -11,7 +16,9 @@ function LoginForm() {
       passwordLogin: "",
     },
     onSubmit: (values) => {
-      values.preventDefault();
+      handleShowDl()
+    },
+    onReset: ()=>{
     },
     validate: (values) => {
       let errors = {};
@@ -21,6 +28,7 @@ function LoginForm() {
       if (!values.passwordLogin) {
         errors.passwordLogin = "Your password is required";
       }
+      
       return errors;
     },
   });
@@ -31,6 +39,7 @@ function LoginForm() {
           <form
             className="needs-validation signInForm"
             onSubmit={formik.handleSubmit}
+            onReset={formik.handleReset}
             noValidate
           >
             <fieldset>
@@ -43,6 +52,7 @@ function LoginForm() {
                   type="text"
                   name="usernameLogin"
                   id="usernameLogin"
+                  aria-label="youUsername"
                   className="form-control input-lg"
                   placeholder="User name"
                   onChange={formik.handleChange}
@@ -61,17 +71,19 @@ function LoginForm() {
                   name="passwordLogin"
                   id="passwordLogin"
                   className="form-control input-lg"
+                  aria-label="yourPassword"
                   placeholder="Password"
                   onChange={formik.handleChange}
                   value={formik.values.passwordLogin}
                   required
                 />
-              </div>
-              {formik.errors.passwordLogin ? (
+                {formik.errors.passwordLogin ? (
                 <div className="errorMessage">
                   {formik.errors.passwordLogin}
                 </div>
               ) : null}
+              </div>
+              
               <div>
                 <button type="submit" className="btn" id="btn-nav-SignIn">
                   Sign In
@@ -79,6 +91,29 @@ function LoginForm() {
                 <button type="reset" className="btn" id="btn-nav-CleanInfo">
                   Clean Info
                 </button>
+                <Modal show={showDl} onHide={handleCloseDl}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>
+                      <div className="text-center">Logged In</div>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="md-form mb-5">
+                      <i className="fas fa-envelope prefix grey-text"></i>
+                      Start enjoying all that THEBOX has ready for you! 
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <div>
+                      <a
+                        className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                        onClick={handleCloseDl}
+                      >
+                        <b> Nice!</b>
+                      </a>
+                    </div>
+                  </Modal.Footer>
+                </Modal>
               </div>
             </fieldset>
           </form>

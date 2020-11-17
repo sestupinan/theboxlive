@@ -6,11 +6,11 @@ import { getAlmacen } from "../services/salesGraphServices";
 //Componente para ilustrar la informacion del Almacen actual
 function StoreInfo() {
   const [almacenData, setAlmacenData] = useState([
-    "TestName",
-    "TestDirection",
-    "TestNumber",
-    ["ProductTest1", "ProductTest2"],
-    ["ActualizationTest1", "ActualizationTest2"],
+    "Loading...",
+    "Loading...",
+    "Loading...",
+    ["Loading", "Loading"],
+    ["Loading", "Loading"],
   ]); //estado para actualizacion de informacion
 
   //Funcion que agrega la informacion recibida de la tienda
@@ -39,14 +39,14 @@ function StoreInfo() {
       <h2 className="text-center">Store: {almacenData[0]}</h2>
       <div className="row justify-content-center">
         <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 rounded storeCol align-items-center">
-          <h5 className="storeFieldsLabel">Address:</h5>{" "}
-          <h5 className="storeFields"> {almacenData[1]}</h5>
-          <h5 className="storeFieldsLabel">ID:</h5>{" "}
-          <h5 className="storeFields"> {almacenData[2]}</h5>
-          <h5 className="storeFieldsLabel"># Products:</h5>{" "}
-          <h5 className="storeFields"> {almacenData[3].length}</h5>
-          <h5 className="storeFieldsLabel"># Actualizations:</h5>{" "}
-          <h5 className="storeFields"> {almacenData[4].length}</h5>
+          <h3 className="storeFieldsLabel">Address:</h3>{" "}
+          <h3 className="storeFields"> {almacenData[1]}</h3>
+          <h3 className="storeFieldsLabel">ID:</h3>{" "}
+          <h3 className="storeFields"> {almacenData[2]}</h3>
+          <h3 className="storeFieldsLabel"># Products:</h3>{" "}
+          <h3 className="storeFields"> {almacenData[3].length}</h3>
+          <h3 className="storeFieldsLabel"># Actualizations:</h3>{" "}
+          <h3 className="storeFields"> {almacenData[4].length}</h3>
         </div>
         <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 rounded storeCol align-items-center">
           <img

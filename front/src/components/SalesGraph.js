@@ -37,12 +37,12 @@ function SalesGraph() {
   return (
     <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
       <div className="row">
-        <h6>
+        <p>
           Check the statistics of your Store, here we will show you how much
           have you sold and when did it happened. If your employees registered
           the transaction as a Sale, a Supply or a Theft you will see it in this
           report.
-        </h6>
+        </p>
       </div>
       <div className="row">
         <Line

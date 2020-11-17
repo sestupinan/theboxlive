@@ -6,11 +6,11 @@ function Modal({ children, show }) {
   // const [show, setShow] = useState(false)
   return show
     ? ReactDOM.createPortal(
-        <div className="background">
-          <div className="modal-container">{children}</div>
-        </div>,
-        document.getElementById("modal")
-      )
+      <div className="background">
+        <div className="modal-container">{children}</div>
+      </div>,
+      document.getElementById("modal")
+    )
     : null;
 }
 

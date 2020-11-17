@@ -1,0 +1,39 @@
+.faq-row-wrapper {
+    align-items: center !important;
+}
+
+h2{
+    text-align: center !important;
+    font-family: "Zilla Slab", serif !important; 
+    color:#1d2d44 !important;
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.headerAzul2{
+    text-align: center;
+    color: #1d2d44;
+  }
+.faq-title.center{
+    text-align: center;
+  }
+.row-title {
+    font-family: "Zilla Slab", serif !important; 
+    text-align: center !important;
+    color: black !important;
+    font-size: 20px !important;
+}
+.row-content {
+    font-family: "Roboto Slab", serif;
+    font-size: 20px ;
+}
+
+.row-content-text {
+    font-family: "Roboto Slab", serif;
+    font-size: 20px ;
+}
+.faq-row {
+}
+.contact-US{
+    font-size: 20px;
+}

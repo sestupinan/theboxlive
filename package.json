@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "0.0.0",
   "private": true,
-  "scripts": {    
+  "scripts": {
     "start-client": "cd front && npm start",
     "build": "npm build && (cd front && npm install)",
     "start": "nodemon ./bin/www",

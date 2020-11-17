@@ -25,7 +25,6 @@ router.get("/api/almacenes", async function (req, res, next) {
 
 /*Metodo para crear un almacen*/
 router.post("/api/almacenes", async function (req, res, next) {
-  console.log(req.body);
   const almacen = await insertAlmacen(req.body);
   res.send("Almacen creado con exito");
 });
@@ -59,7 +58,7 @@ router.put("/api/almacenes/modificar/:id", async function (req, res, next) {
   } else {
     var encontro = false;
     almacen.productos.forEach((producto) => {
-      if (producto.nit === req.body.nit) {
+      if (parseInt(producto.nit) === parseInt(req.body.nit)) {
         encontro = true;
         var currentdate = new Date();
         var datetime =
@@ -76,19 +75,61 @@ router.put("/api/almacenes/modificar/:id", async function (req, res, next) {
           ":" +
           currentdate.getSeconds();
         historial = {
-          usuario: req.body.usuario,
-          nit: req.body.nit,
+          usuario: parseInt(req.body.usuario),
+          nit: parseInt(req.body.nit),
           fecha: datetime,
           cantidadAnterior: producto.cantidad,
           cantidadNueva: req.body.cantidadNueva,
-          tipo: req.body.tipo
+          tipo: req.body.tipo,
         };
         cantidadAnterior = producto.cantidad;
         producto.cantidad = req.body.cantidadNueva;
         almacen.historial.push(historial);
       }
     });
+    console.log(encontro);
     if (encontro === true) {
+      console.log("Entroo");
+      await updateAlmacen(almacen.numero, almacen);
+      res.send(
+        "La cantidad del producto con nit: " +
+          req.body.nit +
+          " En el almacen: " +
+          almacen.nombre +
+          ", fue actualizada a: " +
+          req.body.cantidadNueva +
+          " unidades"
+      );
+    } else res.send("No existe un producto con ese nit");
+  }
+});
+
+/*Metodo para actualizar la cantidad de un producto en una bodega dado el nit y la nueva cantidad y se agrega en el historial teniendo en cuenta que este producto es robado*/
+router.put("/api/almacenes/stolen/:id", async function (req, res, next) {
+  const almacen = await getAlmacen(req.params.id);
+  if (almacen === null) {
+    res.send("No existe un almacen con ese numero");
+  } else {
+    var encontro = false;
+    almacen.productos.forEach((producto) => {
+      if (parseInt(producto.nit) === parseInt(req.body.nit)) {
+        encontro = true;
+        historial = {
+          usuario: parseInt(req.body.usuario),
+          nit: parseInt(req.body.nit),
+          fecha: req.body.date,
+          cantidadAnterior: producto.cantidad,
+          cantidadNueva: req.body.cantidadNueva,
+          tipo: "Stolen",
+        };
+        cantidadAnterior = producto.cantidad;
+        producto.cantidad = req.body.cantidadNueva;
+        almacen.historial.push(historial);
+      }
+    });
+    console.log(encontro);
+    if (encontro === true) {
+      console.log("Entroo");
       await updateAlmacen(almacen.numero, almacen);
       res.send(
         "La cantidad del producto con nit: " +
@@ -113,7 +154,6 @@ router.get("/api/almacenes/historial/:id", async function (req, res, next) {
 /*Metodo para recuperar todos los historiales*/
 router.get("/api/historiales", async function (req, res, next) {
   const almacenes = await getTodosHistoriales();
-  console.log(almacenes);
   res.send(almacenes);
 });
 
@@ -127,10 +167,11 @@ router.get("/api/almacenes/productos/:id", async function (req, res, next) {
 
 /*Metodo para agregar un producto a un almacen*/
 router.put("/api/almacenes/producto/:id", async function (req, res, next) {
-  const almacen = await getAlmacen(req.params.id);
+  const almacen = await getAlmacen(parseInt(req.params.id));
   if (almacen === null) {
     res.send("no existe ese almacen");
   } else {
+    req.body.nit = parseInt(req.body.nit);
     almacen.productos.push(req.body);
     await updateAlmacen(almacen.numero, almacen);
     res.send("Se agregó el producto con exito");
@@ -153,7 +194,7 @@ router.put("/api/delproducto/:id", async function (req, res, next) {
   }
 });
 /*Metodo para eliminar un producto dado un almacen y el nit */
-router.delete("/api/delproducto/:id/:nit", async function (req,res) {
+router.delete("/api/delproducto/:id/:nit", async function (req, res) {
   const almacen = await getAlmacen(req.params.id);
   if (almacen === null) res.send("No existe ese almacen");
   else {
@@ -169,16 +210,17 @@ router.delete("/api/delproducto/:id/:nit", async function (req,res) {
   }
 });
 
-
-
 /* Metodo para ver las actualizaciones que ha hecho un usuario en un almacen*/
-router.get("/api/almacenes/:id/historial/:idUsuario", async function(req, res){
+router.get("/api/almacenes/:id/historial/:idUsuario", async function (
+  req,
+  res
+) {
   let almacen = await getAlmacen(req.params.id);
-  if ( almacen === null) res.send("No existe ningun almacen con dicho ID ");
-  else{
+  if (almacen === null) res.send("No existe ningun almacen con dicho ID ");
+  else {
     let respuesta = [];
-    for(let i = 0; i < almacen.historial.length; i++){
-      if(almacen.historial[i].usuario == req.params.idUsuario){
+    for (let i = 0; i < almacen.historial.length; i++) {
+      if (almacen.historial[i].usuario == req.params.idUsuario) {
         respuesta.push(almacen.historial[i]);
       }
     }
@@ -186,33 +228,33 @@ router.get("/api/almacenes/:id/historial/:idUsuario", async function(req, res){
   }
 });
 /*Metodo para obtener todos los cambios que ha hecho un usuario en todos los almacenes */
-router.get("/api/almacenes/historial/usuario/:idUsuario", async function (req,res) {
+router.get("/api/almacenes/historial/usuario/:idUsuario", async function (
+  req,
+  res
+) {
   let historiales = await getTodosHistoriales();
   let respuesta = [];
-  for(let i = 0; i < historiales.length; i++){
-    if(historiales[i].usuario == req.params.idUsuario){
+  for (let i = 0; i < historiales.length; i++) {
+    if (historiales[i].usuario == req.params.idUsuario) {
       respuesta.push(historiales[i]);
     }
   }
   res.send(respuesta);
 });
 /*Metodo para generar las estadisticas de un almacen*/
-router.get("/api/almacenes/estadisticas/:id", async function (req,res){
+router.get("/api/almacenes/estadisticas/:id", async function (req, res) {
   let almacen = await getAlmacen(req.params.id);
-  if (almacen === null) res.send("No existe ningun almacen con dicho ID "); 
-  else{
+  if (almacen === null) res.send("No existe ningun almacen con dicho ID ");
+  else {
     let capacidad = almacen.capacidad;
-    let capacidadActual = 0; 
-    for(let i = 0; i < almacen.productos.length; i++){
-      capacidadActual += almacen.productos[i].cantidad; 
+    let capacidadActual = 0;
+    for (let i = 0; i < almacen.productos.length; i++) {
+      capacidadActual += almacen.productos[i].cantidad;
     }
-    let ocupacion = (capacidadActual/capacidad) * 100; 
-    let respuesta = {"productos": capacidadActual ,"ocupacion": ocupacion};
+    let ocupacion = (capacidadActual / capacidad) * 100;
+    let respuesta = { productos: capacidadActual, ocupacion: ocupacion };
     res.send(respuesta);
   }
 });
-
-
-
 
 module.exports = router;

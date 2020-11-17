@@ -1,81 +1,93 @@
-#leftMenu{
-    background-color: white;
-    color: #1d2d44; 
-
+#leftMenu {
+  background-color: white;
+  color: #1d2d44;
 }
 
-#mainList{
-    background-color: #fffc;
+#mainList {
+  background-color: #fffc;
 }
 
-#boxLeft{
-    display:block;
-    margin:auto;
-    width: 100%;
-    height: auto;
-    max-width: 200px;
-    max-height: 300px ;
-    padding: 15px;
+#boxLeft {
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  max-height: 300px;
+  padding: 15px;
 }
 
-#nombreEmpresa{
-    margin: auto;
-    display:block;
-    text-align: center;
+#nombreEmpresa {
+  margin: auto;
+  display: block;
+  text-align: center;
 }
 
-.stats{
-    border-color:   #1d2d44 !important;
-    color:  #1d2d44;
+.stats {
+  border-color: #1d2d44 !important;
+  color: #1d2d44;
 }
 
-.mainList{
-    border-color:   #1d2d44 !important;
-    color:  #1d2d44;
+.mainList {
+  border-color: #1d2d44 !important;
+  color: #1d2d44;
 }
 
-#cventas, #vventas, #crobos, #vrobos, #almacenes, #empleados{
-    border-color:   #1d2d44;
+#cventas,
+#vventas,
+#crobos,
+#vrobos,
+#almacenes,
+#empleados {
+  border-color: #1d2d44;
 }
 
-.head{
-    border-color:  #1d2d44 !important;
+.head {
+  border-color: #1d2d44 !important;
 }
 
-td{
-    border-color:  #1d2d44 !important;
-    outline-color: brown;
+td {
+  border-color: #1d2d44 !important;
+  outline-color: brown;
 }
 
-
-
-#search{
-    padding: 5px;
+#search {
+  padding: 5px;
 }
 
-#searchBox{
-    background-color:   #fffc;
-    border-color:   #1d2d44;
-    color:  #1d2d44 !important;
+#searchBox {
+  background-color: lightgray;
+  border-color: #1d2d44;
+  color: #1d2d44 !important;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color:  #1d2d44 !important;
-    opacity: 1 !important; /* Firefox */
-  }
-
-.searchline{
-    padding: 15px !important;
+#actFilter {
+  background-color: rgb(221, 167, 95);
+  border-color: #1d2d44;
+  color: #1d2d44 !important;
 }
 
-.btn-primary{
-    background-color:  #fffc !important;
-    border-color:  #1d2d44 !important;
-    max-height: 40px !important;
-    color: #1d2d44 !important;
+#actFilter2 {
+  background-color: rgb(221, 167, 95);
+  border-color: #1d2d44;
+  color: #1d2d44 !important;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #1d2d44 !important;
+  opacity: 1 !important; /* Firefox */
 }
 
-.form-inline{
-    padding: 15px;
+.searchline {
+  padding: 15px !important;
+}
 
+.btn-primary {
+  border-color: #1d2d44 !important;
+  max-height: 40px !important;
+  color: #1d2d44 !important;
+}
+
+.form-inline {
+  padding: 15px;
 }

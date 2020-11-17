@@ -15,13 +15,13 @@ export async function getUsers() {
 }
 
 export async function postEmployee(data) {
-  await axios.post("/api/users", data);
-  //.then(response => this.setState({ articleId: response.data.id }));
+  let response = await axios.post("/api/users", data);
+  return response.status;
 }
 
 export async function deleteEmployee(data) {
-  await axios.delete("/api/users/" + data);
-  //.then(response => this.setState({ articleId: response.data.id }));
+  let response = await axios.delete("/api/users/" + data);
+  return response.status;
 }
 
 export async function getTiendas() {
@@ -32,10 +32,7 @@ export async function getTiendas() {
     },
   };
   try {
-    let respuesta = await axios.get(
-      "/api/almacenes",
-      config
-    );
+    let respuesta = await axios.get("/api/almacenes", config);
     return respuesta.data;
   } catch (error) {
     console.log(error);
@@ -43,11 +40,11 @@ export async function getTiendas() {
 }
 
 export async function postTienda(data) {
-  await axios.post("/api/almacenes", data);
-  //.then(response => this.setState({ articleId: response.data.id }));
+  let response = await axios.post("/api/almacenes", data);
+  return response.status;
 }
 
 export async function deleteTienda(data) {
-  await axios.delete("/api/almacenes/" + data);
-  //.then(response => this.setState({ articleId: response.data.id }));
+  let response = await axios.delete("/api/almacenes/" + data);
+  return response.status;
 }
