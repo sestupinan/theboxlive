@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logoImg from "../imagenes/thebox3.png";
 import "../css/styleTransactions.css";
-import mobiscroll from "@mobiscroll/react";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
@@ -19,11 +17,7 @@ import {IntlProvider,FormattedMessage, FormattedNumber} from 'react-intl';
 import localeEsMessages from '../local/TransanctionsEs.json';
 import localeZhMessages from '../local/TransanctionsZh.json';
 
-mobiscroll.settings = {
-  theme: "ios",
-  themeVariant: "light",
-  display: "bubble",
-};
+
 import {
   getTransactions,
   postTransaction,
