@@ -1,9 +1,30 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/styleLoginLogup.css";
 import { useFormik } from "formik";
 import Modal from "react-bootstrap/Modal";
+import {FormattedMessage} from 'react-intl';
+
+
+let opcionesIniciales = {
+  "es":{"UsernameR":"Tienes que ingresar el usuario!", "PasswordR":"Tienes que ingresar la contraseña!", "Username":"Usuario","Password":"Contraseña"},
+  "en":{"UsernameR":"Your username is required", "PasswordR":"Your password is required", "Username":"Username","Password":"Password"},
+  "zh":{"UsernameR":"您的用户名是必填项", "PasswordR":"您的密码是必需的", "Username":"用户名","Password":"密码"}
+}
+let opciones ={}
 function LoginForm() {
+  let cambio = false; 
+    if(navigator.language.startsWith("es")){
+      opciones = opcionesIniciales.es;
+    }
+    else if(navigator.language.startsWith("zh")){
+      opciones = opcionesIniciales.zh;
+    }
+    else{
+      opciones = opcionesIniciales.en;
+    }
+    cambio = true;
+    
   const [showDl, setShowDl] = useState(false);
   const handleCloseDl = () => setShowDl(false);
   const handleShowDl = () => {
@@ -23,10 +44,10 @@ function LoginForm() {
     validate: (values) => {
       let errors = {};
       if (!values.usernameLogin) {
-        errors.usernameLogin = "Your username is required";
+        errors.usernameLogin =  opciones.UsernameR;
       }
       if (!values.passwordLogin) {
-        errors.passwordLogin = "Your password is required";
+        errors.passwordLogin = opciones.PasswordR;
       }
       
       return errors;
@@ -44,7 +65,7 @@ function LoginForm() {
           >
             <fieldset>
               <p className="text-uppercase logCategory">
-                Login using your account:
+                <FormattedMessage id="Login" defaultMessage="Login using your account:"/>
               </p>
 
               <div className="form-group">
@@ -54,7 +75,7 @@ function LoginForm() {
                   id="usernameLogin"
                   aria-label="youUsername"
                   className="form-control input-lg"
-                  placeholder="User name"
+                  placeholder={opciones.Username}
                   onChange={formik.handleChange}
                   value={formik.values.usernameLogin}
                   required
@@ -72,7 +93,7 @@ function LoginForm() {
                   id="passwordLogin"
                   className="form-control input-lg"
                   aria-label="yourPassword"
-                  placeholder="Password"
+                  placeholder={opciones.Password}
                   onChange={formik.handleChange}
                   value={formik.values.passwordLogin}
                   required
@@ -86,21 +107,21 @@ function LoginForm() {
               
               <div>
                 <button type="submit" className="btn" id="btn-nav-SignIn">
-                  Sign In
+                <FormattedMessage id="SignIn" defaultMessage="Sign In"/>
                 </button>
                 <button type="reset" className="btn" id="btn-nav-CleanInfo">
-                  Clean Info
+                <FormattedMessage id="Clean" defaultMessage="Clean Info"/>
                 </button>
                 <Modal show={showDl} onHide={handleCloseDl}>
                   <Modal.Header closeButton>
                     <Modal.Title>
-                      <div className="text-center">Logged In</div>
+                      <div className="text-center"><FormattedMessage id="LoggedIn" defaultMessage="Logged In"/></div>
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <div className="md-form mb-5">
                       <i className="fas fa-envelope prefix grey-text"></i>
-                      Start enjoying all that THEBOX has ready for you! 
+                      <FormattedMessage id="Start" defaultMessage="Start enjoying all that THEBOX has ready for you! "/>
                     </div>
                   </Modal.Body>
                   <Modal.Footer>
@@ -109,7 +130,7 @@ function LoginForm() {
                         className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
                         onClick={handleCloseDl}
                       >
-                        <b> Nice!</b>
+                        <b> <FormattedMessage id="Nice" defaultMessage="Nice!"/></b>
                       </a>
                     </div>
                   </Modal.Footer>

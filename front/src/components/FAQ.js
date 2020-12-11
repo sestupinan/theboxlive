@@ -4,9 +4,13 @@ import fblogo from "../imagenes/fb.png";
 import walogo from "../imagenes/wa.png";
 import mailogo from "../imagenes/mail.png";
 import "../css/FAQ.css";
+import {IntlProvider,FormattedMessage} from 'react-intl';
+import localeEsMessages from '../local/FAQEs.json';
+import localeZhMessages from '../local/FAQZh.json';
 
 // Contenido del FAQ
-const data = {
+
+let data = {
     title:  "",
 
     rows: [
@@ -25,10 +29,63 @@ const data = {
         },
         {
             title: "Why are you so cool?",
-            content: <p>I don't know, programmers</p>,
+            content: "I don't know, programmers",
         },
     ],
 };
+if(!navigator.language.startsWith("en")){
+  if(navigator.language.startsWith("es")){
+    data = {
+      title:  "",
+  
+      rows: [
+          {
+              title: "¿Cómo puedo agregar un nuevo producto?",
+              content: 'Para agregar un nuevo producto tienes que ir a la pestaña de inventario. Desde allí podras agregar un nuevo producto con el botón "Añadir producto"',
+          },
+          {
+              title: "¿Cuántas tiendas puedo tener? ",
+              content:
+                  "No existe un máximo de tiendas en The Box, puedes tener todas las tiendas que quieras",
+          },
+          {
+              title: "Si un empleado renunció ¿Cómo puedo removerlo?",
+              content: "Para remover un empleado tienes que ir a tu perfil. Una vez estes alli te aparecerá la lista de todos los empleados con los que cuentas.  Cada empleado tendrá un botón eliminar",
+          },
+          {
+              title: "¿Por qué son tan cool?",
+              content: "No lo sé",
+          },
+      ],
+      };
+  } 
+  else{
+    data = {
+      title:  "",
+  
+      rows: [
+          {
+              title: "如何添加新产品？",
+              content: '要添加新产品，您必须转到库存标签。在这里，您可以使用“添加产品”按钮添加新产品',
+          },
+          {
+              title: "¿我可以有几家商店? ",
+              content:
+                  "The Box没有最大数量的商店，您可以拥有所有想要的商店",
+          },
+          {
+              title: "如果员工辞职，我该如何解雇他？",
+              content: "要删除员工，您必须转到您的个人资料。到达那里后，将显示您拥有的所有员工的列表。每个员工都有一个删除按钮",
+          },
+          {
+              title: "他们为什么这么酷？",
+              content: "我不知道",
+          },
+      ],
+      };
+
+  }
+}
 //Estilo del FAQ
 const styles = {
     //bgColor: rgb(221, 167, 95), 
@@ -45,13 +102,27 @@ const config = {
 };
 //Componente para la visualizacion de FAQ
 function FAQ(){
+  let messages ={"Null":"null"};
+  if(!navigator.language.startsWith("en")){
+    if(navigator.language.startsWith("es")){
+      messages = localeEsMessages;
+    }
+    else{
+      messages = localeZhMessages;
+    }
+  }
+    useEffect(() => {
+        refreshErr();
+    })
     return (
-        <div className="justify-content-center">
-            <h1 className="headerAzul2">Frequently Asked Questions</h1>
+        <IntlProvider locale={navigator.language} messages ={messages} >
+        <div className="container-fluid justify-content-center contenedor col-8">
+            <h1 className="headerAzul2"><FormattedMessage id= "Title" defaultMessage="Frequently Asked Questions"/> </h1>
             <Faq data={data} styles={styles} config={config} />
-            <h3 className="headerAzul2">Didn't get what you wanted?</h3>
-            <div className="justify-content-center text-center">
-                <p className="headerAzul2 contact-US">Contact Us!</p>
+            <p className="headerAzul2 contact-US"><FormattedMessage id= "Extra" defaultMessage="Didn't get what you wanted?"/></p>
+            <div className="container-fluid justify-content-center text-center contenedor">
+                <p className="headerAzul2 contact-US"><FormattedMessage id= "Contact" defaultMessage="Contact Us!"/></p>
+
                 <a
                   className="colorBox"
                   href="https://www.facebook.com/andres.rojas.1297/"
@@ -82,7 +153,7 @@ function FAQ(){
             {refreshErr()}
 
         </div>
-        
+        </IntlProvider>       
     );
 }
 

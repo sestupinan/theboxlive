@@ -1,0 +1,21 @@
+{
+    "Company":"公司",
+    "TotalSales":"总销售额:",
+    "ValueSales":"销售额",
+    "TotalLost":"损失:",
+    "ValueLost":"损失价值：",
+    "Stores":"专卖店",
+    "AddItem":"添加交易",
+    "AddStoleItem":"报告盗窃",
+    "CreateTransaction":"创建交易",
+    "Type":"类型",
+    "Employee":"雇员",
+    "Quantity":"数量",
+    "Store":"商店",
+    "Sale":"特卖",
+    "Supply":"供应",
+    "Close":"关",
+    "SaveChanges":"保存更改",
+    "Date":"日期",
+    "Title":"标题"
+}

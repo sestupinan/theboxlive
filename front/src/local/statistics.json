@@ -1,0 +1,35 @@
+{
+    "es": {
+        "title": "Estadísticas de la Tienda Actual",
+        "text": "Revisa las estadísticas de tu tienda, aquí te mostraremos cuánto has vendido y cuándo sucedió. Si tus empleados registraron la transacción como una venta, un abastecimiento o un Robo, lo verás en este reporte.",
+        "storeInfoStore":"Tienda:",
+        "storeInfoAddress":"Dirección:",
+        "storeInfoID":"ID:",
+        "storeInfoProducts":"Productos:",
+        "storeInfoActualizations": "Actualizaciones",
+        "storeGraphTitle":"Actualizaciones en tienda actual",
+        "storeGraphLegend":"Cantidad en la tienda"
+    },
+    "en": {
+        "title": "Statistics of current Store",
+        "text": "Check the statistics of your Store, here we will show you how much have you sold and when did it happened. If your employees registered the transaction as a Sale, a Supply or a Theft you will see it in this report.",
+        "storeInfoStore":"Store:",
+        "storeInfoAddress":"Address:",
+        "storeInfoID":"ID:",
+        "storeInfoProducts":"Products:",
+        "storeInfoActualizations": "Actualizations",
+        "storeGraphTitle":"Current Store Actualizations",
+        "storeGraphLegend":"Total Quantity of the Store"
+    },
+    "zh": {
+        "title": "当前商店统计",
+        "text": "查看您商店的统计信息，我们将在这里显示您的销售量以及发生的时间。如果您的员工将交易注册为销售，供应或盗窃，您将在此报告中看到它。",
+        "storeInfoStore":"商店:",
+        "storeInfoAddress":"地址:",
+        "storeInfoID":"走:",
+        "storeInfoProducts":"产品展示:",
+        "storeInfoActualizations": "实现",
+        "storeGraphTitle":"当前商店中的更新",
+        "storeGraphLegend":"店内数量"
+    }
+}

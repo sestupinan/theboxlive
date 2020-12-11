@@ -1,0 +1,20 @@
+{
+    "Welcome":"Bienvenido a The Box",
+    "Message":"Aqui tu inventario estará a salvo, no luchas más con cuadernos y transacciones que no conoces",
+    "Developer":"Desarrollador por:",
+    "Username":"Usuario",
+    "Password":"Contraseña",
+    "SignIn":"Ingresar",
+    "Clean":"Limpiar Información",
+    "LoggedIn":"Registrado",
+    "Login":"Ingresa usando tu cuenta",
+    "Start":"Comienza a difrutar todo lo que The Box tiene para ti",
+    "Nice":"Estupendo!",
+    "SignUp":"Registrate",
+    "ConditionsF":"Por favor acepta los terminos y condiciones",
+    "Conditions":"Estoy de acuerdo con los terminos y condiciones de The Box",
+    "LogginUp":"Datos enviados",
+    "RegisterMessage":"Gracias por escoger a The Box, te enviaremos un correo de confirmacion una vez hayamos validado tus datos",
+    "Understood":"Entendido!"
+
+}

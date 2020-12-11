@@ -1,0 +1,40 @@
+{
+    "es": {
+        "home": "Inicio es una sección de nuestra página web que describe los objetivos de nuestra aplicación y cuáles son los beneficios que pueden tener las pequeñas empresas al utilizar nuestro sitio web. También describe qué tipos de negocios pueden beneficiarse y algunas reseñas de clientes que nos han brindado la oportunidad. Finalmente, nombre a cada uno de los miembros del equipo y cómo contactarnos. Échale un vistazo y seguro que te convenceremos;)",
+        "inventory": "El inventario es una sección de nuestra página web donde puede agregar, eliminar o modificar un producto. Debe considerar que podría eliminar un producto si la cantidad del producto es cero.",
+        "statistics": "Estadísticas es una sección donde puede ver cuántos productos tiene el negocio, cuántas actualizaciones existen y puede consultar las estadísticas de la tienda, cuánto se ha vendido el negocio y cuándo sucedió y finalmente qué tipo de transacciones hicieron los empleados.",
+        "profile": "Perfil muestra la información de la persona que lo ve. Si usted es el propietario podrá ver la información del empleado que tiene, su propia información y la información de su negocio.",
+        "transactions": "Transacciones muestra la información de cada modificación que hicieron los empleados, como: Tipo, Fecha, Empleado, Modificación y NIT. En esta sección los empleados o el propietario pueden modificar la cantidad de cada producto y para cada modificación definir el tipo de transacción.",
+        "faq": "En la sección de preguntas frecuentes puede encontrar las preguntas más frecuentes, por lo que si no puede resolver una duda conmigo, debería echar un vistazo a esta parte.",
+        "vacio": "Debes escribir algo para obtener una respuesta.",
+        "noEntender": "Lo siento, pero solo conozco toda la información sobre las secciones de Inicio, Inventario, Satisfacción, Transacciones, Perfil y Preguntas frecuentes, así que pregúntame solo por esta información.",
+        "welcolme": "Hola!, soy el ChatBox, ¿puedo ayudarte?"
+
+
+
+    },
+    "zh": {
+        "home": "主页是我们网页的一部分，描述了我们的应用程序的目标以及小型企业在使用我们的网站时可以获得的好处。它还描述了可以使哪些类型的企业受益，以及一些给予我们机会的客户评论。最后，为每个团队成员命名，以及如何与我们联系。看看吧，我们一定会说服您的；）",
+        "inventory": "库存是我们网页的一部分，您可以在其中添加，删除或修改产品。您必须考虑如果产品数量为零，则可以删除产品",
+        "statistics": "统计信息是一个部分，您可以在其中查看该企业拥有多少产品，存在多少实现，可以查看商店的统计信息，该企业出售了多少商品，该商品何时发生以及最终员工进行了什么样的交易",
+        "profile": "个人资料会显示查看者的信息。如果您是所有者，则可以查看您拥有的员工的信息，您自己的信息以及您的企业信息。",
+        "transactions": "事务显示员工所做的每次修改的信息，例如：类型，日期，员工，修改和NIT。在此部分中，员工或所有者可以修改每种产品的数量，并为每次修改定义交易的类型",
+        "faq": "在“常见问题解答”部分中，您可以找到最常见的问题，因此，如果您无法解决我的疑问，则应阅读本部分。",
+        "vacio": "你必须写点东西才能得到答案",
+        "noEntender": "抱歉，但我只知道有关“家庭”，“个人”，“卫星”，“交易”，“个人资料”和“常见问题”部分的所有信息，所以只问我这些信息",
+        "welcolme": "嗨！ 我是聊天盒， 我能幫你嗎？"
+
+        
+    },
+    "en":{
+        "home": "Home is a section of our web page that describes the objectives of our application and what are the benefits that small businesses can have when using our website. It also describes what types of businesses can be benefited and some customer reviews that have given us the opportunity. Finally, name each of the team members and how to contact us. Take a look and we will surely convince you ;)",
+        "inventory": "Inventory is a section of our web page where you can add, delete or modify a product. You must consider you would be able to delete a product if thw product's quantity is zero.",
+        "statistics": "Statistics is a section where you can see how many products the business has, how many actualizations exists and you could check the statistics of the store, how much have the business sold and when did it happened and finally what kind of trasactions the employees did.",
+        "profile": "Profile shows the information of the person who see it. If you are the owner you would be able to see the information of the employee you have, your own information and the information of your business.",
+        "transactions": "Transactions shows the information of each modification that employees did, such as: Type, Date, Employee, Modification and NIT. In this section the employees or the owner can modify the quantity of each product and for each modification define the type of the transaction",
+        "faq": "In the FAQ section you could find the most common asked questions, so if you cant resolve a doubt with me, you should take a look to this part.",
+        "vacio": "You must write something to get an answer",
+        "noEntender": "Sorry but i only know all the information about Home, Invetory, Satistics, Transactions, Profile, and FAQ sections so ask me only for this information",
+        "welcolme": "Hi!, I'm the ChatBox, May i help you?"
+    }
+}

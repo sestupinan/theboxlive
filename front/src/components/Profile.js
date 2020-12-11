@@ -33,21 +33,43 @@ function Profile() {
   const [productData, setProductData] = useState([]);
   const [loading, setLoad] = useState({ loading: false });
   useEffect(() => {
-    getUsers().then((resp) => {
-      console.log(resp);
-      setProductData(resp);
-      setLoad({ loading: true });
-    });
+    console.log(navigator.language);
+    if (!navigator.onLine) {
+      if (localStorage.getItem("users") === null) {
+        setProductData("Loading...");
+      } else {
+        setProductData(JSON.parse(localStorage.getItem("users")));
+      }
+    } else {
+      getUsers().then((resp) => {
+        console.log(resp);
+        setProductData(resp);
+        setLoad({ loading: true });
+        localStorage.setItem("users", JSON.stringify(resp));
+      });
+    }
   }, []);
 
   //Handles storage list
   const [almacenData, setAlmacenData] = useState([]);
   const [loadingStores, setLoadStore] = useState({ loadingStores: false });
   useEffect(() => {
-    getTiendas().then((resp) => {
-      setAlmacenData(resp);
-      setLoadStore({ loadingStores: true });
-    });
+
+    console.log(navigator.language);
+    if (!navigator.onLine) {
+      if (localStorage.getItem("stores") === null) {
+        setAlmacenData("Loading...");
+      } else {
+        setAlmacenData(JSON.parse(localStorage.getItem("stores")));
+      }
+    } else {
+      getTiendas().then((resp) => {
+        setAlmacenData(resp);
+        setLoadStore({ loadingStores: true });
+        localStorage.setItem("stores", JSON.stringify(resp));
+      });
+    }
+
   }, []);
 
   async function createEmployee() {
@@ -161,61 +183,181 @@ function Profile() {
     setIdDelSt(idSt);
   };
   function cardsEmployees(employee, index) {
-    return (
-      <div className="col justify-content-center" key={index}>
-        <div className="card justify-content-center">
-          <div className="card-body">
-            <img
-              className="card-img-top caras justify-content-center"
-              src={OwnerProfilePic}
-              alt="Imagen de Perfil"
-            ></img>
-            <p className="card-title emplName">Name: {employee.nombre}</p>
-            <p className="card-text infoEmpl">ID: {employee.cedula}</p>
-            <p className="card-text infoEmpl">Email: {employee.correo}</p>
-            <p className="card-text infoEmpl">Role: {employee.rol}</p>
-            <a
-              className="btn btn-default btn-rounded mb-4 contactEmployee"
-              href={"mailto:" + employee.correo}
-              aria-label={"Contact employee" + employee.nombre}
-            >
-              Contact
+    if (!navigator.language.startsWith("en")) {
+      if (navigator.language.startsWith("es")) {
+        return (
+          <div className="col justify-content-center" key={index}>
+            <div className="card justify-content-center">
+              <div className="card-body">
+                <img
+                  className="card-img-top caras justify-content-center"
+                  src={OwnerProfilePic}
+                  alt="Imagen de Perfil"
+                ></img>
+                <p className="card-title emplName">Nombre: {employee.nombre}</p>
+                <p className="card-text infoEmpl">ID: {employee.cedula}</p>
+                <p className="card-text infoEmpl">Correo: {employee.correo}</p>
+                <p className="card-text infoEmpl">Rol: {employee.rol}</p>
+                <a
+                  className="btn btn-default btn-rounded mb-4 contactEmployee"
+                  href={"mailto:" + employee.correo}
+                  aria-label={"Contact employee" + employee.nombre}
+                >
+                  Contacto
             </a>
-            <a
-              className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
-              onClick={() => handleShowDl(employee.cedula)}
-            >
-              Delete Employee
+                <a
+                  className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
+                  onClick={() => handleShowDl(employee.cedula)}
+                >
+                  Eliminar Empleado
             </a>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+    if (navigator.language.startsWith("zh")) {
+      return (
+        <div className="col justify-content-center" key={index}>
+          <div className="card justify-content-center">
+            <div className="card-body">
+              <img
+                className="card-img-top caras justify-content-center"
+                src={OwnerProfilePic}
+                alt="Imagen de Perfil"
+              ></img>
+              <p className="card-title emplName">姓名： {employee.nombre}</p>
+              <p className="card-text infoEmpl">身份证: {employee.cedula}</p>
+              <p className="card-text infoEmpl">邮件： {employee.correo}</p>
+              <p className="card-text infoEmpl">角色： {employee.rol}</p>
+              <a
+                className="btn btn-default btn-rounded mb-4 contactEmployee"
+                href={"mailto:" + employee.correo}
+                aria-label={"Contact employee" + employee.nombre}
+              >
+                联系我们
+          </a>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
+                onClick={() => handleShowDl(employee.cedula)}
+              >
+                移除员工
+          </a>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div className="col justify-content-center" key={index}>
+          <div className="card justify-content-center">
+            <div className="card-body">
+              <img
+                className="card-img-top caras justify-content-center"
+                src={OwnerProfilePic}
+                alt="Imagen de Perfil"
+              ></img>
+              <p className="card-title emplName">Name: {employee.nombre}</p>
+              <p className="card-text infoEmpl">ID: {employee.cedula}</p>
+              <p className="card-text infoEmpl">Email: {employee.correo}</p>
+              <p className="card-text infoEmpl">Role: {employee.rol}</p>
+              <a
+                className="btn btn-default btn-rounded mb-4 contactEmployee"
+                href={"mailto:" + employee.correo}
+                aria-label={"Contact employee" + employee.nombre}
+              >
+                Contact
+              </a>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
+                onClick={() => handleShowDl(employee.cedula)}
+              >
+                Delete Employee
+              </a>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   function cardsStores(store, index) {
-    return (
-      <div className="col justify-content-center" key={index}>
-        <div className="card justify-content-center">
-          <div className="card-body">
-            <img
-              className="card-img-top caras justify-content-center"
-              src={AlmacenPic}
-              alt="Imagen tienda"
-            ></img>
-            <p className="card-title emplName">Name: {store.nombre}</p>
-            <p className="card-text infoEmpl">ID: {store.numero}</p>
-            <p className="card-text infoEmpl">Direccion: {store.direccion}</p>
-            <a
-              className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
-              onClick={() => handleShowStDl(store.numero)}
-            >
-              Delete store
+    if (!navigator.language.startsWith("en")) {
+      if (navigator.language.startsWith("es")) {
+        return (
+          <div className="col justify-content-center" key={index}>
+            <div className="card justify-content-center">
+              <div className="card-body">
+                <img
+                  className="card-img-top caras justify-content-center"
+                  src={AlmacenPic}
+                  alt="Imagen tienda"
+                ></img>
+                <p className="card-title emplName">Nombre: {store.nombre}</p>
+                <p className="card-text infoEmpl">ID: {store.numero}</p>
+                <p className="card-text infoEmpl">Direccion: {store.direccion}</p>
+                <a
+                  className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
+                  onClick={() => handleShowStDl(store.numero)}
+                >
+                  Eliminar Tienda
             </a>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+    if (navigator.language.startsWith("zh")) {
+      return (
+        <div className="col justify-content-center" key={index}>
+          <div className="card justify-content-center">
+            <div className="card-body">
+              <img
+                className="card-img-top caras justify-content-center"
+                src={AlmacenPic}
+                alt="Imagen tienda"
+              ></img>
+              <p className="card-title emplName">姓名： {store.nombre}</p>
+              <p className="card-text infoEmpl">身份证： {store.numero}</p>
+              <p className="card-text infoEmpl"> 地址： {store.direccion}</p>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
+                onClick={() => handleShowStDl(store.numero)}
+              >
+                删除商店
+          </a>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div className="col justify-content-center" key={index}>
+          <div className="card justify-content-center">
+            <div className="card-body">
+              <img
+                className="card-img-top caras justify-content-center"
+                src={AlmacenPic}
+                alt="Imagen tienda"
+              ></img>
+              <p className="card-title emplName">Name: {store.nombre}</p>
+              <p className="card-text infoEmpl">ID: {store.numero}</p>
+              <p className="card-text infoEmpl">Direccion: {store.direccion}</p>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalRemoveEmployee"
+                onClick={() => handleShowStDl(store.numero)}
+              >
+                Delete store
+          </a>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   const [validated, setValidated] = useState(false);
@@ -247,321 +389,960 @@ function Profile() {
     console.log("Validado");
     setValidatedSt(true);
   };
+  if (!navigator.language.startsWith("en")) {
+    if (navigator.language.startsWith("es")) {
+      return (
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col">
+              <h1 className="headerAzul2">Perfil del propietario</h1>
+              <hr />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col chart">
+              <h1>Empleados</h1>
+              <Alert
+                variant="success"
+                show={showSucc}
+                dismissible
+                onClose={() => setSucc(false)}
+              >
+                Empleado creado exitosamente.
+          </Alert>
+              <Alert
+                variant="warning"
+                show={showDel}
+                dismissible
+                onClose={() => setDel(false)}
+              >
+               Empleado eliminado exitosamente.
+          </Alert>
+              <Alert
+                variant="danger"
+                show={showFail}
+                dismissible
+                onClose={() => setFail(false)}
+              >
+                Error.
+          </Alert>
+              <div>
+                <a
+                  className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                  onClick={handleShow}
+                >
+                  Añadir Empleado
+            </a>
+                <Modal show={show} onHide={handleClose}>
+                  <Form
+                    id="createForm"
+                    className="needs-validation createForm"
+                    noValidate
+                    validated={validated}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Crear Empleado</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <div className="md-form mb-5">
+                        <fieldset>
+                          <i className="fas fa-user prefix grey-text"></i>
+                          <label data-error="wrong" data-success="right">
+                            ID:
+                      </label>
+                          <Form.Control
+                            type="text"
+                            name="id"
+                            id="formID"
+                            className="form-control validate"
+                            required
+                          />
+                          <br></br>
+                          <i className="fas fa-envelope prefix grey-text"></i>
+                          <label data-error="wrong" data-success="right">
+                            Nombre:
+                      </label>
+                          <Form.Control
+                            type="text"
+                            name="name"
+                            id="formName"
+                            className="form-control validate"
+                            required
+                          />
 
-  return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col">
-          <h1 className="headerAzul2">Owner Profile</h1>
-          <hr />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col chart">
-          <h1>Employees</h1>
+                          <br></br>
+                          <i className="fas fa-tag prefix grey-text"></i>
+                          <label data-error="wrong" data-success="right">
+                            Correo:
+                      </label>
+                          <Form.Control
+                            type="email"
+                            name="email"
+                            id="formEmail"
+                            className="form-control validate"
+                            required
+                          />
+                          <br></br>
+                          <i className="fas fa-tag prefix grey-text"></i>
+                          <label data-error="wrong" data-success="right">
+                            Rol:
+                      </label>
+                          <Form.Control
+                            type="text"
+                            name="role"
+                            id="formRole"
+                            className="form-control validate"
+                            required
+                          />
+
+                        </fieldset>
+                        <br></br>
+                        <Form.Control.Feedback type="invalid">
+                         Por favor llene todos los campos obligatorios.
+                      </Form.Control.Feedback>
+                      </div>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <button
+                        className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                        onClick={handleClose}
+                        type="reset"
+                      >
+                        Cerrar
+                  </button>
+                      <button
+                        className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                        type="button"
+                        onClick={handleSubmit}
+                      >
+                        Guardar Cambios
+                  </button>
+                    </Modal.Footer>
+                  </Form>
+                </Modal>
+                <Modal show={showDl} onHide={handleCloseDl}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar Empleado</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="md-form mb-5">
+                      <i className="fas fa-envelope prefix grey-text"></i>
+                Esta seguro de que desea eliminar este empleado?
+                </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <a
+                      className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                      onClick={handleCloseDl}
+                    >
+                      Cerrar
+                </a>
+                    <a
+                      className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                      onClick={handleDelete}
+                    >
+                     Eliminar Empleado
+                </a>
+                  </Modal.Footer>
+                </Modal>
+              </div>
+              <div className="row border-izquierda" id="empleados">
+                {productData.length > 0 ? (
+                  productData.map((product, index) =>
+                    cardsEmployees(product, index)
+                  )
+                ) : (
+                    <Loading />
+                  )}
+              </div>
+              <div className="row justify-content-center"></div>
+            </div>
+
+            <div className="col-xl-4 col-md-4 col-lg-4 d-flex justify-content-center">
+              <div className="card">
+                <img className="ownerPic" src={OwnerProfilePic} alt="John" />
+                <h1 className="titleOwner">John Doe</h1>
+                <p className="title">CEO Club Los Alpes</p>
+                <h2 className="information">Informacion</h2>
+                <p className="ownStatistics">Ventas: $500</p>
+                <p className="ownStatistics">Productos: 9</p>
+                <div className="socialM"></div>
+                <p>
+                  <button id="botonsito">Contacto</button>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h1>Tiendas</h1>
+          <a
+            className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+            onClick={handleShowSt}
+          >
+            Añadir Tienda
+      </a>
           <Alert
             variant="success"
-            show={showSucc}
+            show={showSuccSt}
             dismissible
-            onClose={() => setSucc(false)}
+            onClose={() => setSuccSt(false)}
           >
-            Employee created successfully.
-          </Alert>
+            Tienda creada exitosamente.
+      </Alert>
           <Alert
             variant="warning"
-            show={showDel}
+            show={showDelSt}
             dismissible
-            onClose={() => setDel(false)}
+            onClose={() => setDelSt(false)}
           >
-            Employee eliminated successfully.
-          </Alert>
-          <Alert
-            variant="danger"
-            show={showFail}
-            dismissible
-            onClose={() => setFail(false)}
-          >
-            Error.
-          </Alert>
-          <div>
-            <a
-              className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-              onClick={handleShow}
+           Tienda eliminada exitosamente.
+      </Alert>
+          <Modal show={showSt} onHide={handleCloseSt}>
+            <Form
+              id="createFormSt"
+              className="needs-validation createForm"
+              noValidate
+              validated={validatedSt}
             >
-              Add Employee
-            </a>
-            <Modal show={show} onHide={handleClose}>
-              <Form
-                id="createForm"
-                className="needs-validation createForm"
-                noValidate
-                validated={validated}
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title>Create Employee</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <div className="md-form mb-5">
-                    <fieldset>
-                      <i className="fas fa-user prefix grey-text"></i>
-                      <label data-error="wrong" data-success="right">
-                        ID:
-                      </label>
-                      <Form.Control
-                        type="text"
-                        name="id"
-                        id="formID"
-                        className="form-control validate"
-                        required
-                      />
-                      <br></br>
-                      <i className="fas fa-envelope prefix grey-text"></i>
-                      <label data-error="wrong" data-success="right">
-                        Name:
-                      </label>
-                      <Form.Control
-                        type="text"
-                        name="name"
-                        id="formName"
-                        className="form-control validate"
-                        required
-                      />
-
-                      <br></br>
-                      <i className="fas fa-tag prefix grey-text"></i>
-                      <label data-error="wrong" data-success="right">
-                        Email:
-                      </label>
-                      <Form.Control
-                        type="email"
-                        name="email"
-                        id="formEmail"
-                        className="form-control validate"
-                        required
-                      />
-                      <br></br>
-                      <i className="fas fa-tag prefix grey-text"></i>
-                      <label data-error="wrong" data-success="right">
-                        Role:
-                      </label>
-                      <Form.Control
-                        type="text"
-                        name="role"
-                        id="formRole"
-                        className="form-control validate"
-                        required
-                      />
-                      
-                    </fieldset>
-                    <br></br>
-                    <Form.Control.Feedback type="invalid">
-                        Please fill all the required fields.
-                      </Form.Control.Feedback>
-                  </div>
-
-                </Modal.Body>
-                <Modal.Footer>
-                  <button
-                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                    onClick={handleClose}
-                    type="reset"
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                    type="button"
-                    onClick={handleSubmit}
-                  >
-                    Save Changes
-                  </button>
-                </Modal.Footer>
-              </Form>
-            </Modal>
-            <Modal show={showDl} onHide={handleCloseDl}>
               <Modal.Header closeButton>
-                <Modal.Title>Delete Employee</Modal.Title>
+                <Modal.Title>Crear Tienda</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <div className="md-form mb-5">
-                  <i className="fas fa-envelope prefix grey-text"></i>
-                  Are you sure you want to delete this employee?
+                  <i className="fas fa-user prefix grey-text"></i>
+                  <label data-error="wrong" data-success="right">
+                    ID:
+              </label>
+                  <Form.Control
+                    type="text"
+                    id="formStID"
+                    className="form-control validate"
+                    required
+                  />
                 </div>
+
+                <div className="md-form mb-5">
+                  <i className="fas fa-envelope prefix grey-text"></i>
+                  <label data-error="wrong" data-success="right">
+                    Nombre:
+              </label>
+                  <Form.Control
+                    type="text"
+                    id="formStName"
+                    className="form-control validate"
+                    required
+                  />
+                </div>
+                <div className="md-form mb-5">
+                  <i className="fas fa-tag prefix grey-text"></i>
+                  <label data-error="wrong" data-success="right">
+                    Direccion:
+              </label>
+                  <Form.Control
+                    type="text"
+                    id="formStDireccion"
+                    className="form-control validate"
+                    required
+                  />
+                  <br></br>
+                  <Form.Control.Feedback type="invalid">
+                    Por favor llene todos los cambios obligatorios.
+                      </Form.Control.Feedback>
+                </div>
+
               </Modal.Body>
               <Modal.Footer>
-                <a
+                <button
                   className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                  onClick={handleCloseDl}
+                  onClick={handleCloseSt}
+                  type="button"
                 >
-                  Close
-                </a>
-                <a
+                  Cerrar
+            </button>
+                <button
                   className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                  onClick={handleDelete}
+                  type="button"
+                  onClick={handleSubmitSt}
                 >
-                  Delete Employee
-                </a>
+                  Guardad Cambios
+            </button>
               </Modal.Footer>
-            </Modal>
+            </Form>
+          </Modal>
+
+          <Modal show={showStDl} onHide={handleCloseStDl}>
+            <Modal.Header closeButton>
+              <Modal.Title>Eliminar Tienda</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="md-form mb-5">
+                <i className="fas fa-envelope prefix grey-text"></i>
+            Esta seguro de que desea eliminar esta tienda?
           </div>
-          <div className="row border-izquierda" id="empleados">
-            {productData.length > 0 ? (
-              productData.map((product, index) =>
-                cardsEmployees(product, index)
-              )
+            </Modal.Body>
+            <Modal.Footer>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                onClick={handleCloseStDl}
+              >
+                Cerrar
+          </a>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                onClick={handleDeleteSt}
+              >
+                Eliminar Tienda
+          </a>
+            </Modal.Footer>
+          </Modal>
+          <div className="row border-izquierda" id="bodegas">
+            {almacenData.length > 0 ? (
+              almacenData.map((product, index) => cardsStores(product, index))
             ) : (
-              <Loading />
-            )}
-          </div>
-          <div className="row justify-content-center"></div>
-        </div>
-
-        <div className="col-xl-4 col-md-4 col-lg-4 d-flex justify-content-center">
-          <div className="card">
-            <img className="ownerPic" src={OwnerProfilePic} alt="John" />
-            <h1 className="titleOwner">John Doe</h1>
-            <p className="title">CEO Club Los Alpes</p>
-            <h2 className="information">Information</h2>
-            <p className="ownStatistics">Sales: $500</p>
-            <p className="ownStatistics">Products: 9</p>
-            <div className="socialM"></div>
-            <p>
-              <button id="botonsito">Contact</button>
-            </p>
+                <Loading />
+              )}
           </div>
         </div>
-      </div>
+      );
+    }
+  }
 
-      <h1>Stores</h1>
-      <a
-        className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-        onClick={handleShowSt}
-      >
-        Add store
-      </a>
-      <Alert
-        variant="success"
-        show={showSuccSt}
-        dismissible
-        onClose={() => setSuccSt(false)}
-      >
-        Store created successfully.
-      </Alert>
-      <Alert
-        variant="warning"
-        show={showDelSt}
-        dismissible
-        onClose={() => setDelSt(false)}
-      >
-        Store eliminated successfully.
-      </Alert>
-      <Modal show={showSt} onHide={handleCloseSt}>
-        <Form
-          id="createFormSt"
-          className="needs-validation createForm"
-          noValidate
-          validated={validatedSt}
+  if (navigator.language.startsWith("zh")) {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <h1 className="headerAzul2">业主简介</h1>
+            <hr />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col chart">
+            <h1>雇员</h1>
+            <Alert
+              variant="success"
+              show={showSucc}
+              dismissible
+              onClose={() => setSucc(false)}
+            >
+              成功创建员工.
+        </Alert>
+            <Alert
+              variant="warning"
+              show={showDel}
+              dismissible
+              onClose={() => setDel(false)}
+            >
+             员工成功解聘.
+        </Alert>
+            <Alert
+              variant="danger"
+              show={showFail}
+              dismissible
+              onClose={() => setFail(false)}
+            >
+              错了
+        </Alert>
+            <div>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                onClick={handleShow}
+              >
+                添加员工
+          </a>
+              <Modal show={show} onHide={handleClose}>
+                <Form
+                  id="createForm"
+                  className="needs-validation createForm"
+                  noValidate
+                  validated={validated}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>创建就业</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="md-form mb-5">
+                      <fieldset>
+                        <i className="fas fa-user prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                        身份证：
+                    </label>
+                        <Form.Control
+                          type="text"
+                          name="id"
+                          id="formID"
+                          className="form-control validate"
+                          required
+                        />
+                        <br></br>
+                        <i className="fas fa-envelope prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                        姓名：
+                    </label>
+                        <Form.Control
+                          type="text"
+                          name="name"
+                          id="formName"
+                          className="form-control validate"
+                          required
+                        />
+
+                        <br></br>
+                        <i className="fas fa-tag prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                        邮件：
+                    </label>
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          id="formEmail"
+                          className="form-control validate"
+                          required
+                        />
+                        <br></br>
+                        <i className="fas fa-tag prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                        角色：
+                    </label>
+                        <Form.Control
+                          type="text"
+                          name="role"
+                          id="formRole"
+                          className="form-control validate"
+                          required
+                        />
+
+                      </fieldset>
+                      <br></br>
+                      <Form.Control.Feedback type="invalid">
+                      请填写所有必填项.
+                    </Form.Control.Feedback>
+                    </div>
+
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button
+                      className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                      onClick={handleClose}
+                      type="reset"
+                    >
+                      关闭
+                </button>
+                    <button
+                      className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                      type="button"
+                      onClick={handleSubmit}
+                    >
+                      保存更改
+                </button>
+                  </Modal.Footer>
+                </Form>
+              </Modal>
+              <Modal show={showDl} onHide={handleCloseDl}>
+                <Modal.Header closeButton>
+                  <Modal.Title>移除员工</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="md-form mb-5">
+                    <i className="fas fa-envelope prefix grey-text"></i>
+                    你确定要除掉这个员工吗？
+              </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleCloseDl}
+                  >
+                    关闭
+              </a>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleDelete}
+                  >
+                   移除员工
+              </a>
+                </Modal.Footer>
+              </Modal>
+            </div>
+            <div className="row border-izquierda" id="empleados">
+              {productData.length > 0 ? (
+                productData.map((product, index) =>
+                  cardsEmployees(product, index)
+                )
+              ) : (
+                  <Loading />
+                )}
+            </div>
+            <div className="row justify-content-center"></div>
+          </div>
+
+          <div className="col-xl-4 col-md-4 col-lg-4 d-flex justify-content-center">
+            <div className="card">
+              <img className="ownerPic" src={OwnerProfilePic} alt="John" />
+              <h1 className="titleOwner">John Doe</h1>
+              <p className="title">CEO Club Los Alpes</p>
+              <h2 className="information">资讯</h2>
+              <p className="ownStatistics">销售额：500</p>
+              <p className="ownStatistics">产品：9</p>
+              <div className="socialM"></div>
+              <p>
+                <button id="botonsito">联系我们</button>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+
+        <h1>商店</h1>
+        <a
+          className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+          onClick={handleShowSt}
         >
+          添加店铺
+    </a>
+        <Alert
+          variant="success"
+          show={showSuccSt}
+          dismissible
+          onClose={() => setSuccSt(false)}
+        >
+          店铺成功创建.
+    </Alert>
+        <Alert
+          variant="warning"
+          show={showDelSt}
+          dismissible
+          onClose={() => setDelSt(false)}
+        >
+         店铺成功淘汰.
+    </Alert>
+        <Modal show={showSt} onHide={handleCloseSt}>
+          <Form
+            id="createFormSt"
+            className="needs-validation createForm"
+            noValidate
+            validated={validatedSt}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>创建店铺</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="md-form mb-5">
+                <i className="fas fa-user prefix grey-text"></i>
+                <label data-error="wrong" data-success="right">
+                身份证：
+            </label>
+                <Form.Control
+                  type="text"
+                  id="formStID"
+                  className="form-control validate"
+                  required
+                />
+              </div>
+
+              <div className="md-form mb-5">
+                <i className="fas fa-envelope prefix grey-text"></i>
+                <label data-error="wrong" data-success="right">
+                姓名：
+            </label>
+                <Form.Control
+                  type="text"
+                  id="formStName"
+                  className="form-control validate"
+                  required
+                />
+              </div>
+              <div className="md-form mb-5">
+                <i className="fas fa-tag prefix grey-text"></i>
+                <label data-error="wrong" data-success="right">
+                地址：
+            </label>
+                <Form.Control
+                  type="text"
+                  id="formStDireccion"
+                  className="form-control validate"
+                  required
+                />
+                <br></br>
+                <Form.Control.Feedback type="invalid">
+                请填写所有需要修改的内容.
+                    </Form.Control.Feedback>
+              </div>
+
+            </Modal.Body>
+            <Modal.Footer>
+              <button
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                onClick={handleCloseSt}
+                type="button"
+              >
+                关闭
+          </button>
+              <button
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                type="button"
+                onClick={handleSubmitSt}
+              >
+                保存更改
+          </button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
+
+        <Modal show={showStDl} onHide={handleCloseStDl}>
           <Modal.Header closeButton>
-            <Modal.Title>Create Store</Modal.Title>
+            <Modal.Title>删除商店</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="md-form mb-5">
-              <i className="fas fa-user prefix grey-text"></i>
-              <label data-error="wrong" data-success="right">
-                ID:
-              </label>
-              <Form.Control
-                type="text"
-                id="formStID"
-                className="form-control validate"
-                required
-              />
-            </div>
-
-            <div className="md-form mb-5">
               <i className="fas fa-envelope prefix grey-text"></i>
-              <label data-error="wrong" data-success="right">
-                Name:
-              </label>
-              <Form.Control
-                type="text"
-                id="formStName"
-                className="form-control validate"
-                required
-              />
-            </div>
-            <div className="md-form mb-5">
-              <i className="fas fa-tag prefix grey-text"></i>
-              <label data-error="wrong" data-success="right">
-                Address:
-              </label>
-              <Form.Control
-                type="text"
-                id="formStDireccion"
-                className="form-control validate"
-                required
-              />
-              <br></br>
-              <Form.Control.Feedback type="invalid">
-                        Please fill all the required fields.
-                      </Form.Control.Feedback>
-            </div>
-
+              你确定要删除这家店吗？
+        </div>
           </Modal.Body>
           <Modal.Footer>
-            <button
+            <a
               className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-              onClick={handleCloseSt}
-              type="button"
+              onClick={handleCloseStDl}
+            >
+              关闭
+        </a>
+            <a
+              className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+              onClick={handleDeleteSt}
+            >
+              删除商店
+        </a>
+          </Modal.Footer>
+        </Modal>
+        <div className="row border-izquierda" id="bodegas">
+          {almacenData.length > 0 ? (
+            almacenData.map((product, index) => cardsStores(product, index))
+          ) : (
+              <Loading />
+            )}
+        </div>
+      </div>
+    );
+  }
+
+
+  else {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <h1 className="headerAzul2">Owner Profile</h1>
+            <hr />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col chart">
+            <h1>Employees</h1>
+            <Alert
+              variant="success"
+              show={showSucc}
+              dismissible
+              onClose={() => setSucc(false)}
+            >
+              Employee created successfully.
+                </Alert>
+            <Alert
+              variant="warning"
+              show={showDel}
+              dismissible
+              onClose={() => setDel(false)}
+            >
+              Employee eliminated successfully.
+                </Alert>
+            <Alert
+              variant="danger"
+              show={showFail}
+              dismissible
+              onClose={() => setFail(false)}
+            >
+              Error.
+                </Alert>
+            <div>
+              <a
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                onClick={handleShow}
+              >
+                Add Employee
+                  </a>
+              <Modal show={show} onHide={handleClose}>
+                <Form
+                  id="createForm"
+                  className="needs-validation createForm"
+                  noValidate
+                  validated={validated}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Create Employee</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="md-form mb-5">
+                      <fieldset>
+                        <i className="fas fa-user prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                          ID:
+                            </label>
+                        <Form.Control
+                          type="text"
+                          name="id"
+                          id="formID"
+                          className="form-control validate"
+                          required
+                        />
+                        <br></br>
+                        <i className="fas fa-envelope prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                          Name:
+                            </label>
+                        <Form.Control
+                          type="text"
+                          name="name"
+                          id="formName"
+                          className="form-control validate"
+                          required
+                        />
+
+                        <br></br>
+                        <i className="fas fa-tag prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                          Email:
+                            </label>
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          id="formEmail"
+                          className="form-control validate"
+                          required
+                        />
+                        <br></br>
+                        <i className="fas fa-tag prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right">
+                          Role:
+                            </label>
+                        <Form.Control
+                          type="text"
+                          name="role"
+                          id="formRole"
+                          className="form-control validate"
+                          required
+                        />
+
+                      </fieldset>
+                      <br></br>
+                      <Form.Control.Feedback type="invalid">
+                        Please fill all the required fields.
+                            </Form.Control.Feedback>
+                    </div>
+
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button
+                      className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                      onClick={handleClose}
+                      type="reset"
+                    >
+                      Close
+                        </button>
+                    <button
+                      className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                      type="button"
+                      onClick={handleSubmit}
+                    >
+                      Save Changes
+                        </button>
+                  </Modal.Footer>
+                </Form>
+              </Modal>
+              <Modal show={showDl} onHide={handleCloseDl}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Delete Employee</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="md-form mb-5">
+                    <i className="fas fa-envelope prefix grey-text"></i>
+                        Are you sure you want to delete this employee?
+                      </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleCloseDl}
+                  >
+                    Close
+                      </a>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleDelete}
+                  >
+                    Delete Employee
+                      </a>
+                </Modal.Footer>
+              </Modal>
+            </div>
+            <div className="row border-izquierda" id="empleados">
+              {productData.length > 0 ? (
+                productData.map((product, index) =>
+                  cardsEmployees(product, index)
+                )
+              ) : (
+                  <Loading />
+                )}
+            </div>
+            <div className="row justify-content-center"></div>
+          </div>
+
+          <div className="col-xl-4 col-md-4 col-lg-4 d-flex justify-content-center">
+            <div className="card">
+              <img className="ownerPic" src={OwnerProfilePic} alt="John" />
+              <h1 className="titleOwner">John Doe</h1>
+              <p className="title">CEO Club Los Alpes</p>
+              <h2 className="information">Information</h2>
+              <p className="ownStatistics">Sales: $500</p>
+              <p className="ownStatistics">Products: 9</p>
+              <div className="socialM"></div>
+              <p>
+                <button id="botonsito">Contact</button>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h1>Stores</h1>
+        <a
+          className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+          onClick={handleShowSt}
+        >
+          Add store
+            </a>
+        <Alert
+          variant="success"
+          show={showSuccSt}
+          dismissible
+          onClose={() => setSuccSt(false)}
+        >
+          Store created successfully.
+            </Alert>
+        <Alert
+          variant="warning"
+          show={showDelSt}
+          dismissible
+          onClose={() => setDelSt(false)}
+        >
+          Store eliminated successfully.
+            </Alert>
+        <Modal show={showSt} onHide={handleCloseSt}>
+          <Form
+            id="createFormSt"
+            className="needs-validation createForm"
+            noValidate
+            validated={validatedSt}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Create Store</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="md-form mb-5">
+                <i className="fas fa-user prefix grey-text"></i>
+                <label data-error="wrong" data-success="right">
+                  ID:
+                    </label>
+                <Form.Control
+                  type="text"
+                  id="formStID"
+                  className="form-control validate"
+                  required
+                />
+              </div>
+
+              <div className="md-form mb-5">
+                <i className="fas fa-envelope prefix grey-text"></i>
+                <label data-error="wrong" data-success="right">
+                  Name:
+                    </label>
+                <Form.Control
+                  type="text"
+                  id="formStName"
+                  className="form-control validate"
+                  required
+                />
+              </div>
+              <div className="md-form mb-5">
+                <i className="fas fa-tag prefix grey-text"></i>
+                <label data-error="wrong" data-success="right">
+                  Address:
+                    </label>
+                <Form.Control
+                  type="text"
+                  id="formStDireccion"
+                  className="form-control validate"
+                  required
+                />
+                <br></br>
+                <Form.Control.Feedback type="invalid">
+                  Please fill all the required fields.
+                            </Form.Control.Feedback>
+              </div>
+
+            </Modal.Body>
+            <Modal.Footer>
+              <button
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                onClick={handleCloseSt}
+                type="button"
+              >
+                Close
+                  </button>
+              <button
+                className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                type="button"
+                onClick={handleSubmitSt}
+              >
+                Save Changes
+                  </button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
+
+        <Modal show={showStDl} onHide={handleCloseStDl}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Store</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="md-form mb-5">
+              <i className="fas fa-envelope prefix grey-text"></i>
+                  Are you sure you want to delete this store?
+                </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <a
+              className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+              onClick={handleCloseStDl}
             >
               Close
-            </button>
-            <button
+                </a>
+            <a
               className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-              type="button"
-              onClick={handleSubmitSt}
+              onClick={handleDeleteSt}
             >
-              Save Changes
-            </button>
+              Delete Store
+                </a>
           </Modal.Footer>
-        </Form>
-      </Modal>
-
-      <Modal show={showStDl} onHide={handleCloseStDl}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Store</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="md-form mb-5">
-            <i className="fas fa-envelope prefix grey-text"></i>
-            Are you sure you want to delete this store?
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <a
-            className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-            onClick={handleCloseStDl}
-          >
-            Close
-          </a>
-          <a
-            className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-            onClick={handleDeleteSt}
-          >
-            Delete Store
-          </a>
-        </Modal.Footer>
-      </Modal>
-      <div className="row border-izquierda" id="bodegas">
-        {almacenData.length > 0 ? (
-          almacenData.map((product, index) => cardsStores(product, index))
-        ) : (
-          <Loading />
-        )}
+        </Modal>
+        <div className="row border-izquierda" id="bodegas">
+          {almacenData.length > 0 ? (
+            almacenData.map((product, index) => cardsStores(product, index))
+          ) : (
+              <Loading />
+            )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const Loading = () => (

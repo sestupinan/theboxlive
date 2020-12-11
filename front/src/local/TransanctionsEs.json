@@ -1,0 +1,20 @@
+{
+    "Company":"Empresa",
+    "TotalSales":"Ventas totales:",
+    "ValueSales":"Valor ventas:",
+    "TotalLost":"Perdidas:",
+    "ValueLost":"Valor perdidas:",
+    "Stores":"Tiendas",
+    "AddItem":"Añadir transaccion",
+    "AddStoleItem":"Reportar robo",
+    "CreateTransaction":"Crear Transaccion",
+    "Type":"Tipo",
+    "Employee":"Empleado",
+    "Quantity":"Cantidad",
+    "Store":"Tienda",
+    "Sale":"Venta",
+    "Supply":"Aprovisionamiento",
+    "Close":"Cerrar",
+    "SaveChanges":"Guardar cambios",
+    "Date":"Fecha"
+}

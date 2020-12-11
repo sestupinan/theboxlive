@@ -4,11 +4,23 @@ import walogo from "../imagenes/wa.png";
 import mailogo from "../imagenes/mail.png";
 import "../css/homeStyle.css";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import {IntlProvider,FormattedMessage} from 'react-intl';
+import localeEsMessages from '../local/FooterEs.json';
+import localeZhMessages from '../local/FooterZh.json';
 
 
 export default class Footer extends React.Component {
   render() {
+    let messages = {"Null":"Null"}; 
+    if(navigator.language.startsWith("es")){
+      messages = localeEsMessages;
+
+    }
+    if(navigator.language.startsWith("zh")){
+      messages = localeZhMessages;
+    }
     return (
+      <IntlProvider locale={navigator.language} messages={messages}>
       <div>
         <footer className="page-footer font-small pt-4 navBar">
           <div className="container-fluid text-center text-md-left">
@@ -20,39 +32,39 @@ export default class Footer extends React.Component {
               <ul>
                 <li className="nav-item">
                   <Link className="nav-link" to="/">
-                    Home
+                  <FormattedMessage id= "Home" defaultMessage="Home"/>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/inventory">
-                    Inventory
+                  <FormattedMessage id= "Inventory" defaultMessage="Inventory"/>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/statistics">
-                    Statistics
+                  <FormattedMessage id= "Statistics" defaultMessage="Statistics"/>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link type="button" className="nav-link" to="/transactions">
-                    Transactions
+                  <FormattedMessage id= "Transactions" defaultMessage="Transactions"/>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link type="button" className="nav-link" to="/profile">
-                    Profile
+                  <FormattedMessage id= "Profile" defaultMessage="Profile"/>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link type="button" className="nav-link" to="/FAQ">
-                    FAQ
+                  <FormattedMessage id= "FAQ" defaultMessage="FAQ"/>
                   </Link>
                 </li>
               </ul>
               </div>
               <hr className="clearfix w-100 d-md-none pb-3" />
               <div className="col-md-2 mb-md-0 mb-3 ">
-                <p className="text-uppercase colorBox">Contact</p>
+                <p className="text-uppercase colorBox"><FormattedMessage id= "Contact" defaultMessage="Contact Us!"/></p>
 
                 <a
                   className="colorBox"
@@ -83,6 +95,7 @@ export default class Footer extends React.Component {
           </div>
         </footer>
       </div>
+      </IntlProvider>
     );
   }
 }

@@ -2,10 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import "../css/statisticsStyle.css";
 import { getAlmacen } from "../services/salesGraphServices";
+import theJSON from "../local/statistics.json";
 
 //Componente para renderizar grafica de ventas/actualizaciones en la base de datos
 function SalesGraph() {
   const [graphData, setGraphData] = useState({}); //estado para guardado de informacion de grafica
+  const [langJSON, setLangJSON] = useState(() => theJSON["en"]);
+  const [localLang, setLocalLang] = useState(() => navigator.language);
+
+  useEffect(() => {
+    if (localLang === "es") {
+      setLangJSON(theJSON["es"]);
+    } else if (localLang === "zh") {
+      setLangJSON(theJSON["zh"]);
+    }
+  }, [localLang]);
 
   //Funcion que agrega la informacion recibida de la tienda
   function addDataToGraph(theData) {
@@ -26,7 +37,20 @@ function SalesGraph() {
 
   //Funcion que actualiza los datos de la grafica utilizando la funcion getAlmacen del servicio del back
   const updateData = () => {
-    getAlmacen().then((resp) => addDataToGraph(resp)); //setGraphData(resp));
+    console.log(navigator.language);
+    if (!navigator.onLine) {
+      if (localStorage.getItem("dataGraph") === null) {
+        addDataToGraph({});
+      } else {
+        let resp = localStorage.getItem("dataGraph");
+        addDataToGraph(resp);
+      }
+    } else {
+      getAlmacen().then((resp) => {
+        addDataToGraph(resp);
+        localStorage.setItem("dataGraph", JSON.stringify(resp));
+      });
+    }
     //.then(resp => addDataToGraph(resp.historial))
   };
   //Efecto para llamar a la funcion cada vez que se actualice el DOM
@@ -38,10 +62,7 @@ function SalesGraph() {
     <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
       <div className="row">
         <p>
-          Check the statistics of your Store, here we will show you how much
-          have you sold and when did it happened. If your employees registered
-          the transaction as a Sale, a Supply or a Theft you will see it in this
-          report.
+          {langJSON.text}
         </p>
       </div>
       <div className="row">
@@ -49,7 +70,7 @@ function SalesGraph() {
           data={graphData}
           options={{
             responsive: true,
-            title: { text: "Actualizations in current store", display: true },
+            title: { text: langJSON.storeGraphTitle, display: true },
             backgroundColor: "rgb(255, 255, 255)",
           }}
         />

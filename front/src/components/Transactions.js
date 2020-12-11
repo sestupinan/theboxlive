@@ -15,6 +15,9 @@ import { MDBDataTable } from "mdbreact";
 import DataTable from "react-data-table-component";
 import MUIDataTable from "mui-datatables";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {IntlProvider,FormattedMessage, FormattedNumber} from 'react-intl';
+import localeEsMessages from '../local/TransanctionsEs.json';
+import localeZhMessages from '../local/TransanctionsZh.json';
 
 mobiscroll.settings = {
   theme: "ios",
@@ -38,8 +41,7 @@ const loadingData = [
     usuario: "Loading",
   },
 ];
-
-const cols = [
+let cols = [
   {
     name: "tipo",
     label: "Type",
@@ -77,15 +79,116 @@ const cols = [
     },
   },
 ];
-
+let messages = {"Null":"Null"}; 
 function Transactions() {
+  let opcionesModal = {
+    "es":{"Supply":"Aprovisionamiento", "Sale":"Venta", "Title":"Transacciones"},
+    "en":{"Supply":"Supply", "Sale":"Sale","Title":"Transactions"},
+    "zh":{"Supply":"供应", "Sale":"特卖","Title":"标题"}
+  }
+  if(navigator.language.startsWith("es")){
+    messages = localeEsMessages;
+    opcionesModal = opcionesModal.es;
+      cols = [
+        {
+          name: "Tipo",
+          label: "Tipo",
+          options: {
+            filter: true,
+          },
+        },
+        {
+          label: "Fecha",
+          name: "fecha",
+          options: {
+            filter: true,
+          },
+        },
+        {
+          label: "Empleado",
+          name: "usuario",
+          options: {
+            filter: true,
+          },
+        },
+        {
+          label: "Cantidad Nueva",
+          name: "cantidadNueva",
+          options: {
+            filter: true,
+          },
+        },
+        {
+          label: "NIT",
+          name: "nit",
+          options: {
+            filter: true,
+            sort: true,
+          },
+        },
+      ];
+
+  }
+  else if(navigator.language.startsWith("zh")){
+    messages = localeZhMessages;
+    opcionesModal = opcionesModal.zh;
+    cols = [
+      {
+        name: "Tipo",
+        label: "类型",
+        options: {
+          filter: true,
+        },
+      },
+      {
+        label: "日期",
+        name: "fecha",
+        options: {
+          filter: true,
+        },
+      },
+      {
+        label: "雇员",
+        name: "usuario",
+        options: {
+          filter: true,
+        },
+      },
+      {
+        label: "数量",
+        name: "cantidadNueva",
+        options: {
+          filter: true,
+        },
+      },
+      {
+        label: "尼特",
+        name: "nit",
+        options: {
+          filter: true,
+          sort: true,
+        },
+      },
+    ];
+  }
+  else{
+    opcionesModal = opcionesModal.en;
+  }
   const [productData, setProductData] = useState([]);
   useEffect(() => {
-    getTransactions().then((resp) => {
-      setProductData(resp);
-      console.log(resp);
-      refreshErr();
-    });
+    if (!navigator.onLine) {
+      if (localStorage.getItem("transactions") === null) {
+        setProductData("Loading...");
+      } else {
+        setProductData(JSON.parse(localStorage.getItem("transactions")));
+      }
+    } else {
+      getTransactions().then((resp) => {
+        setProductData(resp);
+        refreshErr();
+        localStorage.setItem("transactions", JSON.stringify(resp));
+      });
+    }
   }, []);
 
   //Handles Date Time input
@@ -151,8 +254,6 @@ function Transactions() {
       ":" +
       currentdate.getSeconds();
     newTransaction.date = datetime;
-
-    console.log(value);
     await postStolenTransaction(newTransaction);
   }
 
@@ -166,270 +267,267 @@ function Transactions() {
     newTransaction.tipo = document.getElementById(
       "inlineFormCustomSelect"
     ).value;
-    console.log(newTransaction);
     await postTransaction(
       newTransaction,
       document.getElementById("almacen").value
     );
   }
-  
-
   return (
-    
-    <div className="row">
-      <div className="col-3" id="leftMenu">
-        <img
-          id="boxLeft"
-          src={logoImg}
-          alt="Andres' photo"
-          width="169"
-          height="302"
-        />
-        <h1 id="nombreEmpresa">Empresa 1</h1>
-        <table className="table" id="stats">
-          <thead className="stats">
-            <tr>
-              <th className="stats">Total Sales:</th>
-              <td id="cventas">4</td>
-            </tr>
-            <tr>
-              <th className="stats">Value Sales:</th>
-              <td id="vventas">$500</td>
-            </tr>
-            <tr>
-              <th className="stats">Total Lost:</th>
-              <td id="crobos">1</td>
-            </tr>
-            <tr>
-              <th className="stats">Value Lost:</th>
-              <td id="vrobos">$20</td>
-            </tr>
-          </thead>
+    <IntlProvider locale={navigator.language} messages={messages}>
+      <div className="row">
+        <div className="col-3" id="leftMenu">
+          <img
+            id="boxLeft"
+            src={logoImg}
+            alt="Andres' photo"
+            width="169"
+            height="302"
+          />
+          <h1 id="nombreEmpresa"><FormattedMessage id="Company" defaultMessage="Company"/></h1>
+          <table className="table" id="stats">
+            <thead className="stats">
+              <tr>
+                <th className="stats"><FormattedMessage id= "TotalSales" defaultMessage="Total Sales:"/></th>
+                <td id="cventas">4</td>
+              </tr>
+              <tr>
+                <th className="stats"><FormattedMessage id= "ValueSales" defaultMessage="Value Sales:"/></th>
+                <td id="vventas">$<FormattedNumber value={500}/></td>
+              </tr>
+              <tr>
+                <th className="stats"><FormattedMessage id= "TotalLost" defaultMessage="Total Lost:"/></th>
+                <td id="crobos">1</td>
+              </tr>
+              <tr>
+                <th className="stats"><FormattedMessage id= "ValueLost" defaultMessage="Value Lost:"/></th>
+                <td id="vrobos">$<FormattedNumber value={20}/></td>
+              </tr>
+            </thead>
 
-          <tbody>
-            <tr>
-              <th className="stats">Stores:</th>
-              <td id="almacenes">La cabrera</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="col-9" id="mainList">
-        <div className="row">
-          <div className="my-1 my-sm-0 searchline">
-            <button
-              id="actFilter2"
-              className="btn btn-dark btn-primary my-1 my-sm-0"
-              type="submit"
-              onClick={handleShow}
-            >
-              Add Item Transaction
-            </button>
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Create Transaction</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <div className="md-form mb-5">
-                  Type
-                  <Form>
-                    <Form.Row className="align-items-center">
-                      <Col xs="auto" className="my-1">
-                        <Form.Label
-                          className="mr-sm-2"
-                          htmlFor="inlineFormCustomSelect"
-                          srOnly
-                        >
-                          Preference
-                        </Form.Label>
-                        <Form.Control
-                          as="select"
-                          className="mr-sm-2"
-                          id="inlineFormCustomSelect"
-                          custom
-                        >
-                          <option value="Sale">Sale</option>
-                          <option value="Supply">Supply</option>
-                        </Form.Control>
-                      </Col>
-                    </Form.Row>
-                  </Form>
-                </div>
-                <div className="md-form mb-5">
-                  Employee
-                  <NumericInput
-                    id="usuario"
-                    className="form-control"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  Quantity
-                  <NumericInput
-                    className="form-control"
-                    id="cantidadNueva"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  Store
-                  <NumericInput
-                    className="form-control"
-                    id="almacen"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  NIT
-                  <NumericInput
-                    className="form-control"
-                    id="nit"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-              </Modal.Body>
-              <Modal.Footer>
-                <a
-                  className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                  onClick={handleClose}
-                >
-                  Close
-                </a>
-                <a
-                  className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                  onClick={handleCreate}
-                >
-                  Save Changes
-                </a>
-              </Modal.Footer>
-            </Modal>
-          </div>
-          <div className="my-2 my-sm-0 searchline">
-            <button
-              id="actFilter"
-              className="btn btn-primary my-2 my-sm-0"
-              type="submit"
-              onClick={handleShow1}
-            >
-              Add Stolen item Transaction
-            </button>
-            <Modal show={show1} onHide={handleClose1}>
-              <Modal.Header closeButton>
-                <Modal.Title>Create Stolen Item Transaction</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <div className="md-form mb-5">
-                  Employee
-                  <NumericInput
-                    id="usuario1"
-                    className="form-control"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  Quantity
-                  <NumericInput
-                    className="form-control"
-                    id="cantidadNueva1"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  Store
-                  <NumericInput
-                    className="form-control"
-                    id="almacen1"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  NIT
-                  <NumericInput
-                    className="form-control"
-                    id="nit1"
-                    value={1}
-                    min={0}
-                    max={100}
-                    step={1}
-                    precision={0}
-                    size={5}
-                  />
-                </div>
-                <div className="md-form mb-5">
-                  Date
-                  <div>
-                    <DateTimePicker
-                      id="dates"
-                      onChange={onChange}
-                      value={value}
+            <tbody>
+              <tr>
+                <th className="stats"><FormattedMessage id= "Stores" defaultMessage="Stores:"/></th>
+                <td id="almacenes">La cabrera</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="col-9" id="mainList">
+          <div className="row">
+            <div className="my-1 my-sm-0 searchline">
+              <button
+                id="actFilter2"
+                className="btn btn-dark btn-primary my-1 my-sm-0"
+                type="submit"
+                onClick={handleShow}
+              >
+                <FormattedMessage id= "AddItem" defaultMessage="Add Item Transaction"/>
+              </button>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title><FormattedMessage id= "CreateTransaction" defaultMessage="Create Transaction"/></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Type" defaultMessage="Type"/>
+                    <Form>
+                      <Form.Row className="align-items-center">
+                        <Col xs="auto" className="my-1">
+                          <Form.Label
+                            className="mr-sm-2"
+                            htmlFor="inlineFormCustomSelect"
+                            srOnly
+                          >
+                            Preference
+                          </Form.Label>
+                          <Form.Control
+                            as="select"
+                            className="mr-sm-2"
+                            id="inlineFormCustomSelect"
+                            custom
+                          >
+                            <option value="Sale">{opcionesModal.Sale}</option>
+                            <option value="Supply">{opcionesModal.Supply}</option>
+                          </Form.Control>
+                        </Col>
+                      </Form.Row>
+                    </Form>
+                  </div>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Employee" defaultMessage="Employee"/>
+                    <NumericInput
+                      id="usuario"
+                      className="form-control"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
                     />
                   </div>
-                </div>
-              </Modal.Body>
-              <Modal.Footer>
-                <a
-                  className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                  onClick={handleClose1}
-                >
-                  Close
-                </a>
-                <a
-                  className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
-                  onClick={handleCreate1}
-                >
-                  Save Changes
-                </a>
-              </Modal.Footer>
-            </Modal>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Quantity" defaultMessage="Quantity"/>
+                    <NumericInput
+                      className="form-control"
+                      id="cantidadNueva"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Store" defaultMessage="Store"/>
+                    <NumericInput
+                      className="form-control"
+                      id="almacen"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                  <div className="md-form mb-5">
+                    NIT
+                    <NumericInput
+                      className="form-control"
+                      id="nit"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleClose}
+                  >
+                    <FormattedMessage id= "Close" defaultMessage="Close"/>
+                  </a>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleCreate}
+                  >
+                    <FormattedMessage id= "SaveChanges" defaultMessage="Save Changes"/>
+                  </a>
+                </Modal.Footer>
+              </Modal>
+            </div>
+            <div className="my-2 my-sm-0 searchline">
+              <button
+                id="actFilter"
+                className="btn btn-primary my-2 my-sm-0"
+                type="submit"
+                onClick={handleShow1}
+              >
+                <FormattedMessage id= "AddStoleItem" defaultMessage="Add Stolen item Transaction"/>
+              </button>
+              <Modal show={show1} onHide={handleClose1}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Create Stolen Item Transaction</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Employee" defaultMessage="Employee"/>
+                    <NumericInput
+                      id="usuario1"
+                      className="form-control"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Quantity" defaultMessage="Quantity"/> 
+                    <NumericInput
+                      className="form-control"
+                      id="cantidadNueva1"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Store" defaultMessage="Store"/> 
+                    <NumericInput
+                      className="form-control"
+                      id="almacen1"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                  <div className="md-form mb-5">
+                    NIT
+                    <NumericInput
+                      className="form-control"
+                      id="nit1"
+                      value={1}
+                      min={0}
+                      max={100}
+                      step={1}
+                      precision={0}
+                      size={5}
+                    />
+                  </div>
+                  <div className="md-form mb-5">
+                  <FormattedMessage id= "Date" defaultMessage="Date"/> 
+                    <div>
+                      <DateTimePicker
+                        id="dates"
+                        onChange={onChange}
+                        value={value}
+                      />
+                    </div>
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleClose1}
+                  >
+                    <FormattedMessage id= "Close" defaultMessage="Close"/> 
+                  </a>
+                  <a
+                    className="btn btn-default btn-rounded mb-4 btnModalAddEmployee"
+                    onClick={handleCreate1}
+                  >
+                    <FormattedMessage id= "SaveChanges" defaultMessage="Save Changes"/> 
+                  </a>
+                </Modal.Footer>
+              </Modal>
+            </div>
           </div>
+          <MUIDataTable
+            title ={opcionesModal.Title}
+            data={productData.length > 0 ? productData : loadingData}
+            columns={cols}
+          />
         </div>
-        <MUIDataTable
-          title={"Transactions"}
-          data={productData.length > 0 ? productData : loadingData}
-          columns={cols}
-        />
       </div>
-    </div>
+    </IntlProvider>
   );
 }
 
 function modificarTransacciones() {
-  console.log(productData);
 }
 
 function itemTransactions(product, index) {
